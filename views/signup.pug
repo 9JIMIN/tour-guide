@@ -1,0 +1,20 @@
+extends base
+
+block content
+    .form--signup.container.w-25
+        form
+            h2.text-center Create your accout
+            .form-group
+                label(for='name') Name
+                input#name.form-control(placeholder='Your name')
+            .form-group
+                label(for='email') Email address
+                input#email.form-control(type='email' placeholder='Enter email')
+            .form-group
+                label(for='password') Password
+                input#password.form-control(type='password' placeholder='Your Password')
+            .form-group
+                label(for='passwordConfirm') Confirm Password
+                input#passwordConfirm.form-control(type='password' placeholder='Confirm Password')
+            .form-group.text-center
+                button.btn.btn-primary(type="submit") Sign Up

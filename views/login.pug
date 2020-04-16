@@ -1,0 +1,14 @@
+extends base
+
+block content
+    .form--login.container.w-25
+        form
+            h2.text-center Login
+            .form-group
+                label(for='email') Email address
+                input#email.form-control(type='email' placeholder='Enter email')
+            .form-group
+                label(for='password') Password
+                input#password.form-control(type='password' placeholder='Your Password')
+            .form-group.text-center
+                button.btn.btn-primary(type="submit") Login
