@@ -23,6 +23,12 @@ const userSchema = new mongoose.Schema({
   passwordConfirm: {
     type: String,
     required: [true, "passwordConfirm is missing."],
+    validate: {
+      validator: function (el) {
+        return el === this.password;
+      },
+      message: "password is diffrent!",
+    },
   },
   passwordResetToken: String,
   passwordResetExpires: Date,

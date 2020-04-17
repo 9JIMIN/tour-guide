@@ -12,3 +12,7 @@ exports.getSignupForm = (req, res, next) => {
 exports.getLoginForm = (req, res, next) => {
   res.status(200).render("login");
 };
+
+exports.getAccount = (req, res, next) => {
+  res.status(200).render("account");
+};

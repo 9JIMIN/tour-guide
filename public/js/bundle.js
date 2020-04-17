@@ -13721,7 +13721,35 @@ module.exports.default = axios;
 
 },{"./utils":"../../node_modules/axios/lib/utils.js","./helpers/bind":"../../node_modules/axios/lib/helpers/bind.js","./core/Axios":"../../node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"../../node_modules/axios/lib/core/mergeConfig.js","./defaults":"../../node_modules/axios/lib/defaults.js","./cancel/Cancel":"../../node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"../../node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"../../node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"../../node_modules/axios/lib/helpers/spread.js"}],"../../node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"../../node_modules/axios/lib/axios.js"}],"signup.js":[function(require,module,exports) {
+},{"./lib/axios":"../../node_modules/axios/lib/axios.js"}],"alert.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.showAlert = exports.hideAlert = void 0;
+
+/* eslint-disable no-undef */
+
+/* eslint-disable node/no-unsupported-features/es-syntax */
+var hideAlert = function hideAlert() {
+  var el = document.querySelector(".alert");
+  if (el) el.parentElement.removeChild(el);
+}; // type is 'success' or 'error'
+
+
+exports.hideAlert = hideAlert;
+
+var showAlert = function showAlert(type, msg) {
+  var time = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3;
+  hideAlert();
+  var markup = "<div class=\"alert alert--".concat(type, "\">").concat(msg, "</div>");
+  document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
+  window.setTimeout(hideAlert, time * 1000);
+};
+
+exports.showAlert = showAlert;
+},{}],"signup.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13730,6 +13758,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.signup = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
+
+var _alert = require("./alert");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13761,20 +13791,22 @@ var signup = /*#__PURE__*/function () {
             res = _context.sent;
 
             if (res.data.status === "success") {
+              (0, _alert.showAlert)("success", "sign up success! please check your email");
               window.setTimeout(function () {
                 location.assign("/");
               }, 1500);
             }
 
-            _context.next = 10;
+            _context.next = 11;
             break;
 
           case 7:
             _context.prev = 7;
             _context.t0 = _context["catch"](0);
-            console.log(_context.t0);
+            (0, _alert.showAlert)("error", _context.t0.response.data.message);
+            console.log(_context.t0.response.data.message);
 
-          case 10:
+          case 11:
           case "end":
             return _context.stop();
         }
@@ -13788,7 +13820,7 @@ var signup = /*#__PURE__*/function () {
 }();
 
 exports.signup = signup;
-},{"axios":"../../node_modules/axios/index.js"}],"login.js":[function(require,module,exports) {
+},{"axios":"../../node_modules/axios/index.js","./alert":"alert.js"}],"login.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13798,7 +13830,7 @@ exports.logout = exports.login = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _regeneratorRuntime = require("regenerator-runtime");
+var _alert = require("./alert");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13828,20 +13860,22 @@ var login = /*#__PURE__*/function () {
             res = _context.sent;
 
             if (res.data.status === "success") {
+              (0, _alert.showAlert)("success", "Login successfully!");
               window.setTimeout(function () {
                 location.assign("/");
               }, 500);
             }
 
-            _context.next = 10;
+            _context.next = 11;
             break;
 
           case 7:
             _context.prev = 7;
             _context.t0 = _context["catch"](0);
-            console.log(_context.t0);
+            (0, _alert.showAlert)("error", _context.t0.response.data.message);
+            console.log(_context.t0.response.data.message);
 
-          case 10:
+          case 11:
           case "end":
             return _context.stop();
         }
@@ -13901,7 +13935,72 @@ var logout = /*#__PURE__*/function () {
 }();
 
 exports.logout = logout;
-},{"axios":"../../node_modules/axios/index.js","regenerator-runtime":"../../node_modules/regenerator-runtime/runtime.js"}],"index.js":[function(require,module,exports) {
+},{"axios":"../../node_modules/axios/index.js","./alert":"alert.js"}],"updateUser.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.updateUser = void 0;
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _alert = require("./alert");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var updateUser = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(data, type) {
+    var url, res;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            url = type === "user" ? "/users/me" : "/users/password";
+            _context.next = 4;
+            return (0, _axios.default)({
+              method: "patch",
+              url: url,
+              data: data
+            });
+
+          case 4:
+            res = _context.sent;
+
+            if (res.data.status === "success") {
+              (0, _alert.showAlert)("success", "user data changed!");
+              location.assign("/me");
+            }
+
+            _context.next = 12;
+            break;
+
+          case 8:
+            _context.prev = 8;
+            _context.t0 = _context["catch"](0);
+            (0, _alert.showAlert)("error", _context.t0.response.data.message);
+            console.log(_context.t0.response.data.message);
+
+          case 12:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 8]]);
+  }));
+
+  return function updateUser(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+exports.updateUser = updateUser;
+},{"axios":"../../node_modules/axios/index.js","./alert":"alert.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 require("core-js/stable");
@@ -13912,6 +14011,8 @@ var _signup = require("./signup.js");
 
 var _login = require("./login.js");
 
+var _updateUser = require("./updateUser");
+
 /* eslint-disable no-undef */
 
 /* eslint-disable import/extensions */
@@ -13920,6 +14021,8 @@ var _login = require("./login.js");
 var signupForm = document.querySelector(".form--signup");
 var loginForm = document.querySelector(".form--login");
 var logoutBtn = document.querySelector(".logout");
+var updateData = document.querySelector(".form--updateData");
+var updatePassword = document.querySelector(".form--updatePassword");
 
 if (signupForm) {
   signupForm.addEventListener("submit", function (e) {
@@ -13942,7 +14045,33 @@ if (loginForm) {
 }
 
 if (logoutBtn) logoutBtn.addEventListener("click", _login.logout);
-},{"core-js/stable":"../../node_modules/core-js/stable/index.js","regenerator-runtime/runtime.js":"../../node_modules/regenerator-runtime/runtime.js","./signup.js":"signup.js","./login.js":"login.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+if (updateData) {
+  updateData.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    (0, _updateUser.updateUser)({
+      name: name,
+      email: email
+    }, "user");
+  });
+}
+
+if (updatePassword) {
+  updatePassword.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var currentPassword = document.getElementById("currentPassword").value;
+    var newPassword = document.getElementById("newPassword").value;
+    var newPasswordConfirm = document.getElementById("newPasswordConfirm").value;
+    (0, _updateUser.updateUser)({
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+      newPasswordConfirm: newPasswordConfirm
+    }, "password");
+  });
+}
+},{"core-js/stable":"../../node_modules/core-js/stable/index.js","regenerator-runtime/runtime.js":"../../node_modules/regenerator-runtime/runtime.js","./signup.js":"signup.js","./login.js":"login.js","./updateUser":"updateUser.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -13970,7 +14099,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56918" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63897" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

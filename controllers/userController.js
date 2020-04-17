@@ -25,7 +25,7 @@ exports.signup = async (req, res, next) => {
       data: newUser,
     });
   } catch (err) {
-    return next(err);
+    return next(err); //리턴을 하면 next가 가능하네
   }
 };
 
@@ -71,6 +71,7 @@ exports.isLoggedIn = async (req, res, next) => {
       if (!currentUser) return next();
 
       res.locals.user = currentUser;
+      req.user = currentUser;
 
       return next();
     } catch (err) {
@@ -78,4 +79,39 @@ exports.isLoggedIn = async (req, res, next) => {
     }
   }
   next();
+};
+
+exports.updateUser = async (req, res, next) => {
+  try {
+    const updateUser = await User.findByIdAndUpdate(req.user.id, req.body, {
+      runValidators: true,
+      new: true,
+    });
+    res.status(200).json({
+      status: "success",
+      data: { updateUser },
+    });
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.updatePassword = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!(await user.correctPassword(req.body.currentPassword, user.password)))
+      return next(new Error("password is wrong!"));
+
+    user.password = req.body.newPassword;
+    user.passwordConfirm = req.body.newPasswordConfirm;
+    await user.save();
+
+    sendToken(user, res);
+    res.status(200).json({
+      status: "success",
+      data: { user },
+    });
+  } catch (err) {
+    return next(err);
+  }
 };

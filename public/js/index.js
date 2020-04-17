@@ -5,10 +5,13 @@ import "core-js/stable";
 import "regenerator-runtime/runtime.js";
 import { signup } from "./signup.js";
 import { login, logout } from "./login.js";
+import { updateUser } from "./updateUser";
 
 const signupForm = document.querySelector(".form--signup");
 const loginForm = document.querySelector(".form--login");
 const logoutBtn = document.querySelector(".logout");
+const updateData = document.querySelector(".form--updateData");
+const updatePassword = document.querySelector(".form--updatePassword");
 
 if (signupForm) {
   signupForm.addEventListener("submit", (e) => {
@@ -31,3 +34,25 @@ if (loginForm) {
 }
 
 if (logoutBtn) logoutBtn.addEventListener("click", logout);
+
+if (updateData) {
+  updateData.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    updateUser({ name, email }, "user");
+  });
+}
+if (updatePassword) {
+  updatePassword.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const currentPassword = document.getElementById("currentPassword").value;
+    const newPassword = document.getElementById("newPassword").value;
+    const newPasswordConfirm = document.getElementById("newPasswordConfirm")
+      .value;
+    updateUser(
+      { currentPassword, newPassword, newPasswordConfirm },
+      "password"
+    );
+  });
+}

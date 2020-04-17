@@ -5,18 +5,17 @@
 import axios from "axios";
 import { showAlert } from "./alert";
 
-export const signup = async (name, email, password, passwordConfirm) => {
+export const updateUser = async (data, type) => {
   try {
+    const url = type === "user" ? "/users/me" : "/users/password";
     const res = await axios({
-      method: "post",
-      url: "/users/signup",
-      data: { name, email, password, passwordConfirm },
+      method: "patch",
+      url,
+      data,
     });
     if (res.data.status === "success") {
-      showAlert("success", "sign up success! please check your email");
-      window.setTimeout(() => {
-        location.assign("/");
-      }, 1500);
+      showAlert("success", "user data changed!");
+      location.assign("/me");
     }
   } catch (err) {
     showAlert("error", err.response.data.message);

@@ -16,4 +16,7 @@ header.header
                     else
                         a.nav-link(href='/login') Login
                 li.nav-item
-                    a.nav-link(href='/signup') Signup
+                    if user
+                        a.nav-link(href="/me") account
+                    else
+                        a.nav-link(href='/signup') Signup

@@ -3,7 +3,7 @@
 /* eslint-disable node/no-unsupported-features/es-syntax */
 /* eslint-disable import/prefer-default-export */
 import axios from "axios";
-import { async } from "regenerator-runtime";
+import { showAlert } from "./alert";
 
 export const login = async (email, password) => {
   try {
@@ -13,12 +13,14 @@ export const login = async (email, password) => {
       data: { email, password },
     });
     if (res.data.status === "success") {
+      showAlert("success", "Login successfully!");
       window.setTimeout(() => {
         location.assign("/");
       }, 500);
     }
   } catch (err) {
-    console.log(err);
+    showAlert("error", err.response.data.message);
+    console.log(err.response.data.message);
   }
 };
 
