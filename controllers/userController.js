@@ -1,6 +1,8 @@
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 const User = require("../models/userModel");
+const Email = require("../utils/email");
 
 const sendToken = (user, res) => {
   const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
@@ -110,6 +112,74 @@ exports.updatePassword = async (req, res, next) => {
     res.status(200).json({
       status: "success",
       data: { user },
+    });
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.forgotPassword = async (req, res, next) => {
+  // 1. email을 받아서 DB에 검색
+  // 2. 없으면 애러, 있으면 메일보냄
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) return next(new Error("No user exist!"));
+
+  const resetToken = user.createPasswordResetToken();
+  await user.save({ validateBeforeSave: false });
+  try {
+    const url = `${req.protocol}://${req.get(
+      "host"
+    )}/resetPassword/${resetToken}`;
+    //sendmail
+    await new Email(user, url).sendPasswordReset();
+    res.status(200).json({
+      status: "success",
+      message: "mail was sended!",
+    });
+  } catch (err) {
+    this.passwordResetToken = undefined;
+    this.passwordResetExpires = undefined;
+    await user.save({ validateBeforeSave: false });
+  }
+};
+
+exports.checkToken = async (req, res, next) => {
+  // 1. params에 있는 토큰 분리
+  // 2. 토큰을 encrypt해서 DB토큰이랑 비교, 시간도 체크
+  // 3. 맞으면, req.body로 받은 비번으로 바꿔줌.
+  // 4. 토큰 부여
+  const resetToken = req.params.token;
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: Date.now() },
+  });
+  if (!user) {
+    res.status(404).render("error", { message: "token is invalid" });
+  }
+  //console.log(user);
+  req.app.locals.reset = user;
+  next();
+};
+
+exports.resetPassword = async (req, res, next) => {
+  try {
+    const user = req.app.locals.reset;
+
+    user.password = req.body.password;
+    user.passwordConfirm = req.body.passwordConfirm;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    await user.save();
+
+    sendToken(user, res);
+    res.status(200).json({
+      status: "success",
+      data: user,
     });
   } catch (err) {
     return next(err);

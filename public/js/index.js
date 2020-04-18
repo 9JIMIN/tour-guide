@@ -6,12 +6,15 @@ import "regenerator-runtime/runtime.js";
 import { signup } from "./signup.js";
 import { login, logout } from "./login.js";
 import { updateUser } from "./updateUser";
+import { forgot, reset } from "./forgot";
 
 const signupForm = document.querySelector(".form--signup");
 const loginForm = document.querySelector(".form--login");
 const logoutBtn = document.querySelector(".logout");
 const updateData = document.querySelector(".form--updateData");
 const updatePassword = document.querySelector(".form--updatePassword");
+const forgotPassword = document.querySelector(".form--forgotPassword");
+const resetPassword = document.querySelector(".form--resetPassword");
 
 if (signupForm) {
   signupForm.addEventListener("submit", (e) => {
@@ -54,5 +57,21 @@ if (updatePassword) {
       { currentPassword, newPassword, newPasswordConfirm },
       "password"
     );
+  });
+}
+if (forgotPassword) {
+  forgotPassword.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    forgot(email);
+  });
+}
+
+if (resetPassword) {
+  resetPassword.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const password = document.getElementById("password").value;
+    const passwordConfirm = document.getElementById("passwordConfirm").value;
+    reset(password, passwordConfirm);
   });
 }

@@ -16,3 +16,11 @@ exports.getLoginForm = (req, res, next) => {
 exports.getAccount = (req, res, next) => {
   res.status(200).render("account");
 };
+
+exports.getForgotPasswordForm = (req, res, next) => {
+  res.status(200).render("forgot");
+};
+
+exports.getresetPasswordForm = (req, res, next) => {
+  res.status(200).render("resetPassword");
+};

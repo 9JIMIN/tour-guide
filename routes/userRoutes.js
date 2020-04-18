@@ -12,5 +12,7 @@ router.patch(
   userController.isLoggedIn,
   userController.updatePassword
 );
+router.post("/forgotPassword", userController.forgotPassword);
+router.patch("/resetPassword", userController.resetPassword);
 
 module.exports = router;

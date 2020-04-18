@@ -14000,6 +14000,112 @@ var updateUser = /*#__PURE__*/function () {
 }();
 
 exports.updateUser = updateUser;
+},{"axios":"../../node_modules/axios/index.js","./alert":"alert.js"}],"forgot.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.reset = exports.forgot = void 0;
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _alert = require("./alert");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var forgot = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(email) {
+    var res;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return (0, _axios.default)({
+              method: "post",
+              url: "/users/forgotPassword",
+              data: {
+                email: email
+              }
+            });
+
+          case 3:
+            res = _context.sent;
+            if (res.data.status === "success") (0, _alert.showAlert)("success", "email was sended!");
+            _context.next = 11;
+            break;
+
+          case 7:
+            _context.prev = 7;
+            _context.t0 = _context["catch"](0);
+            (0, _alert.showAlert)("error", _context.t0.response.data.message);
+            console.log(_context.t0);
+
+          case 11:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 7]]);
+  }));
+
+  return function forgot(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+exports.forgot = forgot;
+
+var reset = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(password, passwordConfirm) {
+    var res;
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.prev = 0;
+            _context2.next = 3;
+            return (0, _axios.default)({
+              method: "patch",
+              url: "/users/resetPassword",
+              data: {
+                password: password,
+                passwordConfirm: passwordConfirm
+              }
+            });
+
+          case 3:
+            res = _context2.sent;
+            if (res.data.status === "success") (0, _alert.showAlert)("success", "password changed");
+            _context2.next = 11;
+            break;
+
+          case 7:
+            _context2.prev = 7;
+            _context2.t0 = _context2["catch"](0);
+            (0, _alert.showAlert)("error", _context2.t0.response.data.message);
+            console.log("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥");
+
+          case 11:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[0, 7]]);
+  }));
+
+  return function reset(_x2, _x3) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+exports.reset = reset;
 },{"axios":"../../node_modules/axios/index.js","./alert":"alert.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
@@ -14013,6 +14119,8 @@ var _login = require("./login.js");
 
 var _updateUser = require("./updateUser");
 
+var _forgot = require("./forgot");
+
 /* eslint-disable no-undef */
 
 /* eslint-disable import/extensions */
@@ -14023,6 +14131,8 @@ var loginForm = document.querySelector(".form--login");
 var logoutBtn = document.querySelector(".logout");
 var updateData = document.querySelector(".form--updateData");
 var updatePassword = document.querySelector(".form--updatePassword");
+var forgotPassword = document.querySelector(".form--forgotPassword");
+var resetPassword = document.querySelector(".form--resetPassword");
 
 if (signupForm) {
   signupForm.addEventListener("submit", function (e) {
@@ -14071,7 +14181,24 @@ if (updatePassword) {
     }, "password");
   });
 }
-},{"core-js/stable":"../../node_modules/core-js/stable/index.js","regenerator-runtime/runtime.js":"../../node_modules/regenerator-runtime/runtime.js","./signup.js":"signup.js","./login.js":"login.js","./updateUser":"updateUser.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+if (forgotPassword) {
+  forgotPassword.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = document.getElementById("email").value;
+    (0, _forgot.forgot)(email);
+  });
+}
+
+if (resetPassword) {
+  resetPassword.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var password = document.getElementById("password").value;
+    var passwordConfirm = document.getElementById("passwordConfirm").value;
+    (0, _forgot.reset)(password, passwordConfirm);
+  });
+}
+},{"core-js/stable":"../../node_modules/core-js/stable/index.js","regenerator-runtime/runtime.js":"../../node_modules/regenerator-runtime/runtime.js","./signup.js":"signup.js","./login.js":"login.js","./updateUser":"updateUser.js","./forgot":"forgot.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -14099,7 +14226,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63897" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50842" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

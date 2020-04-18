@@ -1,0 +1,11 @@
+extends base
+
+block content
+    .form--forgotPassword.container.w-25
+        form
+            h2.text-center Forgot password
+            .form-group
+                label(for='email') Email address
+                input#email.form-control(type='email' placeholder='Enter email')
+            .form-group.text-center
+                button.btn.btn-primary(type="submit") send email
