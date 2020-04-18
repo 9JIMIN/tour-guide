@@ -24,3 +24,21 @@ exports.getForgotPasswordForm = (req, res, next) => {
 exports.getresetPasswordForm = (req, res, next) => {
   res.status(200).render("resetPassword");
 };
+
+exports.getCreateTourForm = (req, res, next) => {
+  res.status(200).render("createTour");
+};
+
+exports.getUpdateUserForm = (req, res, next) => {
+  res.status(200).render("updateUser");
+};
+
+exports.getMyTours = async (req, res, next) => {
+  const tours = await Tour.find({ guides: { $in: req.user.id } });
+  res.status(200).render("myTours", { tours });
+};
+
+exports.getTour = async (req, res, next) => {
+  const tour = await Tour.findOne({ slug: req.params.slug });
+  res.status(200).render("tour", { tour });
+};

@@ -7,6 +7,7 @@ import { signup } from "./signup.js";
 import { login, logout } from "./login.js";
 import { updateUser } from "./updateUser";
 import { forgot, reset } from "./forgot";
+import { createTour } from "./tour.js";
 
 const signupForm = document.querySelector(".form--signup");
 const loginForm = document.querySelector(".form--login");
@@ -15,6 +16,7 @@ const updateData = document.querySelector(".form--updateData");
 const updatePassword = document.querySelector(".form--updatePassword");
 const forgotPassword = document.querySelector(".form--forgotPassword");
 const resetPassword = document.querySelector(".form--resetPassword");
+const tourForm = document.querySelector(".form--createTour");
 
 if (signupForm) {
   signupForm.addEventListener("submit", (e) => {
@@ -73,5 +75,14 @@ if (resetPassword) {
     const password = document.getElementById("password").value;
     const passwordConfirm = document.getElementById("passwordConfirm").value;
     reset(password, passwordConfirm);
+  });
+}
+
+if (tourForm) {
+  tourForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value;
+    const description = document.getElementById("description").value;
+    createTour(name, description);
   });
 }

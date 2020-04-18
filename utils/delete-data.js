@@ -29,3 +29,5 @@ const deleteData = async () => {
 if (process.argv[2] === "--delete") {
   deleteData();
 }
+
+// node ./utils/delete-data.js --delete

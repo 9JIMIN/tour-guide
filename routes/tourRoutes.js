@@ -1,11 +1,12 @@
 const express = require("express");
 const tourController = require("../controllers/tourController");
+const userController = require("../controllers/userController");
 
 const router = express.Router();
 
 router
   .route("/")
   .get(tourController.getAllTours)
-  .post(tourController.createTour);
+  .post(userController.isLoggedIn, tourController.createTour);
 
 module.exports = router;

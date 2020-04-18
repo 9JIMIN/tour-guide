@@ -1,4 +1,14 @@
 extends base
 
 block content
+    main.main
+        each tour in tours
+            .tours.container(href="/tour")
+                .tour=`tour name: ${tour.name}`
+                each guide in tour.guides
+                    .guide= `guide: ${guide.name}`
+                .description=`About tour: ${tour.description}`
+                a(href=`/tour/${tour.slug}`) book now!
+                br
+                br
 

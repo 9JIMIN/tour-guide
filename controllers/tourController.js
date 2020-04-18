@@ -13,9 +13,16 @@ exports.getAllTours = async (req, res, next) => {
 };
 
 exports.createTour = async (req, res, next) => {
-  const newTour = await Tour.create(req.body);
-  res.status(201).json({
-    status: "success",
-    data: newTour,
-  });
+  try {
+    req.body.guides = req.user.id;
+    req.user.role = "guide";
+    await req.user.save({ validateBeforeSave: false });
+    const newTour = await Tour.create(req.body);
+    res.status(201).json({
+      status: "success",
+      data: newTour,
+    });
+  } catch (err) {
+    return next(new Error(err));
+  }
 };
