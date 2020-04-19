@@ -39,6 +39,10 @@ exports.getMyTours = async (req, res, next) => {
 };
 
 exports.getTour = async (req, res, next) => {
-  const tour = await Tour.findOne({ slug: req.params.slug });
+  const tour = await Tour.findOne({ slug: req.params.slug }).populate({
+    path: "reviews",
+    fields: "user",
+  });
+  req.app.locals.tourId = tour.id;
   res.status(200).render("tour", { tour });
 };

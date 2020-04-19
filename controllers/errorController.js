@@ -16,6 +16,6 @@ const sendError = (err, req, res) => {
 module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   const error = Object.create(err);
-  if (error.name === "MongoError") mongoError(error);
+  // if (error.name === "MongoError") mongoError(error);
   sendError(error, req, res);
 };

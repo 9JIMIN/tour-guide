@@ -1,8 +1,21 @@
 extends base
 
 block content
-    .tour.container
+    .tour.container **about tour**
         .tour=`name: ${tour.name}`
-        .description=`abour tour: ${tour.description}`
+        .description=`description: ${tour.description}`
         each guide in tour.guides
             .guide=`guides: ${guide.name}`
+        br
+        .reviews **reviews**
+            each review in tour.reviews
+                .review--name=`name: ${review.user.name}`
+                .review--content=`review: ${review.review}`
+                br
+        .form--review.container.w-25
+            form
+                .form-grouph
+                        label(for="review") review
+                        input#review.form-control(type='text' placeholder='review')
+                .form-group.text-center
+                    button.btn.btn-primary(type="submit") make it!

@@ -1,17 +1,23 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
 
-const tourSchema = new mongoose.Schema({
-  name: { type: String, required: [true, "Tour name is missing!"] },
-  slug: String,
-  description: String,
-  guides: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: "User",
-    },
-  ],
-});
+const tourSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: [true, "Tour name is missing!"] },
+    slug: String,
+    description: String,
+    guides: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+      },
+    ],
+  },
+  {
+    toJSON: true,
+    toObject: true,
+  }
+);
 
 tourSchema.pre("save", function (next) {
   this.slug = slugify(this.name, { lower: true });
@@ -22,6 +28,11 @@ tourSchema.pre(/^find/, function (next) {
     path: "guides",
   });
   next();
+});
+tourSchema.virtual("reviews", {
+  ref: "Review",
+  foreignField: "tour",
+  localField: "_id",
 });
 
 const Tour = mongoose.model("Tour", tourSchema);

@@ -19,3 +19,18 @@ export const createTour = async (name, description) => {
     showAlert("error", err.response.data.message);
   }
 };
+
+export const tourReview = async (review) => {
+  try {
+    const res = await axios({
+      method: "post",
+      url: "/reviews",
+      data: { review },
+    });
+    if (res.data.status === "success")
+      showAlert("success", "review created successfully!");
+    location.reload();
+  } catch (err) {
+    showAlert("error", err.response.data.message);
+  }
+};
