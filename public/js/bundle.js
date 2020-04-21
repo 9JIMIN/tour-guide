@@ -14112,7 +14112,7 @@ exports.reset = reset;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createTour = void 0;
+exports.tourReview = exports.createTour = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
 
@@ -14125,7 +14125,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var createTour = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(name, description) {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(name, description, price, group) {
     var res;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -14138,14 +14138,16 @@ var createTour = /*#__PURE__*/function () {
               url: "/tours",
               data: {
                 name: name,
-                description: description
+                description: description,
+                price: price,
+                group: group
               }
             });
 
           case 3:
             res = _context.sent;
             if (res.data.status === "success") (0, _alert.showAlert)("success", "tour created successfully!");
-            location.assign("/me");
+            location.assign("/");
             _context.next = 11;
             break;
 
@@ -14162,12 +14164,119 @@ var createTour = /*#__PURE__*/function () {
     }, _callee, null, [[0, 8]]);
   }));
 
-  return function createTour(_x, _x2) {
+  return function createTour(_x, _x2, _x3, _x4) {
     return _ref.apply(this, arguments);
   };
 }();
 
 exports.createTour = createTour;
+
+var tourReview = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(review) {
+    var res;
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.prev = 0;
+            _context2.next = 3;
+            return (0, _axios.default)({
+              method: "post",
+              url: "/reviews",
+              data: {
+                review: review
+              }
+            });
+
+          case 3:
+            res = _context2.sent;
+            if (res.data.status === "success") (0, _alert.showAlert)("success", "review created successfully!");
+            location.reload();
+            _context2.next = 11;
+            break;
+
+          case 8:
+            _context2.prev = 8;
+            _context2.t0 = _context2["catch"](0);
+            (0, _alert.showAlert)("error", _context2.t0.response.data.message);
+
+          case 11:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[0, 8]]);
+  }));
+
+  return function tourReview(_x5) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+exports.tourReview = tourReview;
+},{"axios":"../../node_modules/axios/index.js","./alert":"alert.js"}],"booking.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createBooking = void 0;
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _alert = require("./alert");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var createBooking = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(tour) {
+    var res;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return (0, _axios.default)({
+              method: "post",
+              url: "/bookings",
+              data: {
+                tour: tour
+              }
+            });
+
+          case 3:
+            res = _context.sent;
+            if (res.data.status === "success") (0, _alert.showAlert)("success", "Booking successfully!");
+            window.setTimeout(function () {
+              location.assign("/");
+            }, 1000);
+            _context.next = 11;
+            break;
+
+          case 8:
+            _context.prev = 8;
+            _context.t0 = _context["catch"](0);
+            (0, _alert.showAlert)("error", _context.t0.response.data.message);
+
+          case 11:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 8]]);
+  }));
+
+  return function createBooking(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+exports.createBooking = createBooking;
 },{"axios":"../../node_modules/axios/index.js","./alert":"alert.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
@@ -14185,6 +14294,8 @@ var _forgot = require("./forgot");
 
 var _tour = require("./tour.js");
 
+var _booking = require("./booking.js");
+
 /* eslint-disable no-undef */
 
 /* eslint-disable import/extensions */
@@ -14198,6 +14309,8 @@ var updatePassword = document.querySelector(".form--updatePassword");
 var forgotPassword = document.querySelector(".form--forgotPassword");
 var resetPassword = document.querySelector(".form--resetPassword");
 var tourForm = document.querySelector(".form--createTour");
+var reviewForm = document.querySelector(".form--review");
+var bookingBtn = document.getElementById("booking");
 
 if (signupForm) {
   signupForm.addEventListener("submit", function (e) {
@@ -14269,10 +14382,26 @@ if (tourForm) {
     e.preventDefault();
     var name = document.getElementById("name").value;
     var description = document.getElementById("description").value;
-    (0, _tour.createTour)(name, description);
+    var price = document.getElementById("price").value;
+    var group = document.getElementById("group").value;
+    (0, _tour.createTour)(name, description, price, group);
   });
 }
-},{"core-js/stable":"../../node_modules/core-js/stable/index.js","regenerator-runtime/runtime.js":"../../node_modules/regenerator-runtime/runtime.js","./signup.js":"signup.js","./login.js":"login.js","./updateUser":"updateUser.js","./forgot":"forgot.js","./tour.js":"tour.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+if (reviewForm) {
+  reviewForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var review = document.getElementById("review").value;
+    (0, _tour.tourReview)(review);
+  });
+}
+
+if (bookingBtn) bookingBtn.addEventListener("click", function (e) {
+  e.target.textContent = "Processing...";
+  var tour = e.target.dataset.tour;
+  (0, _booking.createBooking)(tour);
+});
+},{"core-js/stable":"../../node_modules/core-js/stable/index.js","regenerator-runtime/runtime.js":"../../node_modules/regenerator-runtime/runtime.js","./signup.js":"signup.js","./login.js":"login.js","./updateUser":"updateUser.js","./forgot":"forgot.js","./tour.js":"tour.js","./booking.js":"booking.js"}],"../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -14300,7 +14429,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53682" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60912" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

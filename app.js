@@ -7,6 +7,7 @@ const errorController = require("./controllers/errorController");
 const tourRouter = require("./routes/tourRoutes");
 const userRouter = require("./routes/userRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
+const bookingRouter = require("./routes/bookingRoutes");
 const viewRouter = require("./routes/viewRoutes");
 
 const app = express();
@@ -25,5 +26,6 @@ app.use("/", viewRouter);
 app.use("/tours", tourRouter);
 app.use("/users", userRouter);
 app.use("/reviews", reviewRouter);
+app.use("/bookings", bookingRouter);
 app.use(errorController);
 module.exports = app;

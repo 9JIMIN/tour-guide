@@ -17,6 +17,6 @@ header.header
                         a.nav-link(href='/login') Login
                 li.nav-item
                     if user
-                        a.nav-link(href="/me") account
+                        a.nav-link(href=`/${user.name}`) account
                     else
-                        a.nav-link(href='/signup') Signup
+                        a.nav-link(href='/join') Signup

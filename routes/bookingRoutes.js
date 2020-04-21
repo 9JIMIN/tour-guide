@@ -1,5 +1,5 @@
 const express = require("express");
-const reviewController = require("../controllers/reviewController");
+const bookingController = require("../controllers/bookingController");
 const userController = require("../controllers/userController");
 
 const router = express.Router();
@@ -7,8 +7,7 @@ const router = express.Router();
 router.post(
   "/",
   userController.getCurrentUser,
-  reviewController.setTourUserId,
-  reviewController.createReview
+  bookingController.createBooking
 );
 
 module.exports = router;

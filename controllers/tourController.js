@@ -1,28 +1,24 @@
 const Tour = require("../models/tourModel");
+const catchAsync = require("../utils/catchAsync");
+const APIFeatures = require("../utils/apiFeatures");
 
-exports.getAllTours = async (req, res, next) => {
-  const tours = await Tour.find();
+exports.getAllTours = catchAsync(async (req, res, next) => {
+  const features = new APIFeatures(Tour.find(), req.query);
+  const doc = await features.query;
+  res.locals.tours = doc;
+  next();
+});
 
-  res.status(200).json({
+exports.createTour = catchAsync(async (req, res, next) => {
+  req.body.guides = req.user.id;
+  const newTour = await Tour.create(req.body);
+
+  req.user.role = "guide";
+  req.user.tour.push(newTour.id);
+  await req.user.save({ validateBeforeSave: false });
+
+  res.status(201).json({
     status: "success",
-    results: tours.length,
-    data: {
-      tours,
-    },
+    data: newTour,
   });
-};
-
-exports.createTour = async (req, res, next) => {
-  try {
-    req.body.guides = req.user.id;
-    req.user.role = "guide";
-    await req.user.save({ validateBeforeSave: false });
-    const newTour = await Tour.create(req.body);
-    res.status(201).json({
-      status: "success",
-      data: newTour,
-    });
-  } catch (err) {
-    return next(new Error(err));
-  }
-};
+});

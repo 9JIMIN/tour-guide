@@ -7,6 +7,6 @@ const router = express.Router();
 router
   .route("/")
   .get(tourController.getAllTours)
-  .post(userController.isLoggedIn, tourController.createTour);
+  .post(userController.getCurrentUser, tourController.createTour);
 
 module.exports = router;

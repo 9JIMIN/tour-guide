@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "name is missing."],
+    unique: true,
   },
   email: {
     type: String,
@@ -16,6 +17,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ["user", "guide", "admin"],
     default: "user",
+  },
+  tour: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Tour",
+    },
+  ],
+  ratingsAverage: {
+    type: Number,
+    default: 3,
+    min: 0,
+    max: 5,
   },
   password: {
     type: String,

@@ -6,16 +6,22 @@ const tourSchema = new mongoose.Schema(
     name: { type: String, required: [true, "Tour name is missing!"] },
     slug: String,
     description: String,
+    price: { type: Number, required: [true, "price is missing!"] },
+    group: { type: Number, required: [true, "group is missing!"] },
     guides: [
       {
         type: mongoose.Schema.ObjectId,
         ref: "User",
       },
     ],
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+    },
   },
   {
-    toJSON: true,
-    toObject: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
 

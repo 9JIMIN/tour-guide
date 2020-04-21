@@ -8,6 +8,7 @@ import { login, logout } from "./login.js";
 import { updateUser } from "./updateUser";
 import { forgot, reset } from "./forgot";
 import { createTour, tourReview } from "./tour.js";
+import { createBooking } from "./booking.js";
 
 const signupForm = document.querySelector(".form--signup");
 const loginForm = document.querySelector(".form--login");
@@ -18,6 +19,7 @@ const forgotPassword = document.querySelector(".form--forgotPassword");
 const resetPassword = document.querySelector(".form--resetPassword");
 const tourForm = document.querySelector(".form--createTour");
 const reviewForm = document.querySelector(".form--review");
+const bookingBtn = document.getElementById("booking");
 
 if (signupForm) {
   signupForm.addEventListener("submit", (e) => {
@@ -84,7 +86,9 @@ if (tourForm) {
     e.preventDefault();
     const name = document.getElementById("name").value;
     const description = document.getElementById("description").value;
-    createTour(name, description);
+    const price = document.getElementById("price").value;
+    const group = document.getElementById("group").value;
+    createTour(name, description, price, group);
   });
 }
 
@@ -95,3 +99,10 @@ if (reviewForm) {
     tourReview(review);
   });
 }
+
+if (bookingBtn)
+  bookingBtn.addEventListener("click", (e) => {
+    e.target.textContent = "Processing...";
+    const { tour } = e.target.dataset;
+    createBooking(tour);
+  });

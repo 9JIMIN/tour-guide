@@ -1,13 +1,19 @@
 const { promisify } = require("util");
-const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const Email = require("../utils/email");
+const catchAsync = require("../utils/catchAsync");
+const AppError = require("../utils/appError");
 
-const sendToken = (user, res) => {
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+const signToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
+};
+
+const createSendToken = (user, statusCode, req, res) => {
+  const token = signToken(user.id);
 
   res.cookie("jwt", token, {
     expires: new Date(
@@ -15,43 +21,33 @@ const sendToken = (user, res) => {
     ),
     httpOnly: true,
   });
+  res.status(statusCode).json({
+    status: "success",
+    data: {
+      user,
+    },
+  });
 };
 
-exports.signup = async (req, res, next) => {
-  try {
-    const newUser = await User.create(req.body);
+exports.signup = catchAsync(async (req, res, next) => {
+  const newUser = await User.create(req.body);
 
-    sendToken(newUser, res);
-    res.status(201).json({
-      status: "success",
-      data: newUser,
-    });
-  } catch (err) {
-    return next(err); //리턴을 하면 next가 가능하네
-  }
-};
+  createSendToken(newUser, 201, req, res);
+});
 
-exports.login = async (req, res, next) => {
-  try {
-    const { email, password } = req.body;
-    if (!email || !password)
-      return next(new Error("email or password missing!"));
+exports.login = catchAsync(async (req, res, next) => {
+  const { email, password } = req.body;
+  if (!email || !password)
+    return next(new AppError("email or password missing!", 401));
 
-    const user = await User.findOne({ email });
-    if (!user) return next(new Error("theres no matching user!"));
+  const user = await User.findOne({ email });
+  if (!user) return next(new AppError("theres no matching user!", 401));
 
-    const passwordCorrect = await user.correctPassword(password, user.password);
-    if (!passwordCorrect) return next(new Error("password is wrong!"));
+  const passwordCorrect = await user.correctPassword(password, user.password);
+  if (!passwordCorrect) return next(new AppError("password is wrong!", 401));
 
-    sendToken(user, res);
-    res.status(200).json({
-      status: "success",
-      data: { user },
-    });
-  } catch (err) {
-    return next(err);
-  }
-};
+  createSendToken(user, 200, req, res);
+});
 
 exports.logout = (req, res, next) => {
   res.cookie("jwt", "loggedout", {
@@ -61,7 +57,7 @@ exports.logout = (req, res, next) => {
   res.status(200).json({ status: "success" });
 };
 
-exports.isLoggedIn = async (req, res, next) => {
+exports.getCurrentUser = catchAsync(async (req, res, next) => {
   if (req.cookies.jwt) {
     try {
       const decoded = await promisify(jwt.verify)(
@@ -81,48 +77,36 @@ exports.isLoggedIn = async (req, res, next) => {
     }
   }
   next();
-};
+});
 
-exports.updateUser = async (req, res, next) => {
-  try {
-    const updateUser = await User.findByIdAndUpdate(req.user.id, req.body, {
-      runValidators: true,
-      new: true,
-    });
-    res.status(200).json({
-      status: "success",
-      data: { updateUser },
-    });
-  } catch (err) {
-    return next(err);
-  }
-};
+exports.updateUser = catchAsync(async (req, res, next) => {
+  const updateUser = await User.findByIdAndUpdate(req.user.id, req.body, {
+    runValidators: true,
+    new: true,
+  });
+  res.status(200).json({
+    status: "success",
+    data: { updateUser },
+  });
+});
 
-exports.updatePassword = async (req, res, next) => {
-  try {
-    const user = await User.findById(req.user.id);
-    if (!(await user.correctPassword(req.body.currentPassword, user.password)))
-      return next(new Error("password is wrong!"));
+exports.updatePassword = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  if (!(await user.correctPassword(req.body.currentPassword, user.password)))
+    return next(new AppError("password is wrong!", 401));
 
-    user.password = req.body.newPassword;
-    user.passwordConfirm = req.body.newPasswordConfirm;
-    await user.save();
+  user.password = req.body.newPassword;
+  user.passwordConfirm = req.body.newPasswordConfirm;
+  await user.save();
 
-    sendToken(user, res);
-    res.status(200).json({
-      status: "success",
-      data: { user },
-    });
-  } catch (err) {
-    return next(err);
-  }
-};
+  createSendToken(user, 200, req, res);
+});
 
-exports.forgotPassword = async (req, res, next) => {
+exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1. email을 받아서 DB에 검색
   // 2. 없으면 애러, 있으면 메일보냄
   const user = await User.findOne({ email: req.body.email });
-  if (!user) return next(new Error("No user exist!"));
+  if (!user) return next(new AppError("No user exist!", 404));
 
   const resetToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
@@ -140,10 +124,12 @@ exports.forgotPassword = async (req, res, next) => {
     this.passwordResetToken = undefined;
     this.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
-  }
-};
 
-exports.checkToken = async (req, res, next) => {
+    return next(new AppError("There was an error sending the email.", 500));
+  }
+});
+
+exports.checkToken = catchAsync(async (req, res, next) => {
   // 1. params에 있는 토큰 분리
   // 2. 토큰을 encrypt해서 DB토큰이랑 비교, 시간도 체크
   // 3. 맞으면, req.body로 받은 비번으로 바꿔줌.
@@ -164,24 +150,25 @@ exports.checkToken = async (req, res, next) => {
   //console.log(user);
   req.app.locals.reset = user;
   next();
-};
+});
 
-exports.resetPassword = async (req, res, next) => {
-  try {
-    const user = req.app.locals.reset;
+exports.resetPassword = catchAsync(async (req, res, next) => {
+  const user = req.app.locals.reset;
 
-    user.password = req.body.password;
-    user.passwordConfirm = req.body.passwordConfirm;
-    user.passwordResetToken = undefined;
-    user.passwordResetExpires = undefined;
-    await user.save();
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+  await user.save();
 
-    sendToken(user, res);
-    res.status(200).json({
-      status: "success",
-      data: user,
-    });
-  } catch (err) {
-    return next(err);
-  }
-};
+  createSendToken(user, 200, req, res);
+});
+
+exports.getGuideStats = catchAsync(async (req, res, next) => {
+  const guides = await User.find({ role: "guide" })
+    .sort("-ratingsAverage")
+    .limit(10);
+  res.locals.guides = guides;
+
+  next();
+});

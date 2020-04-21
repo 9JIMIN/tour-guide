@@ -1,30 +1,45 @@
 const express = require("express");
 const viewController = require("../controllers/viewController");
 const userController = require("../controllers/userController");
+const tourController = require("../controllers/tourController");
 
 const router = express.Router();
 
-router.get("/", userController.isLoggedIn, viewController.getOverview);
-router.get("/signup", viewController.getSignupForm);
+router.get(
+  "/",
+  userController.getCurrentUser,
+  tourController.getAllTours,
+  userController.getGuideStats,
+  viewController.getOverview
+);
+router.get("/join", viewController.getSignupForm);
 router.get("/login", viewController.getLoginForm);
-router.get("/me", userController.isLoggedIn, viewController.getAccount);
 router.get(
   "/updateUser",
-  userController.isLoggedIn,
+  userController.getCurrentUser,
   viewController.getUpdateUserForm
 );
 router.get(
-  "/createTour",
-  userController.isLoggedIn,
+  "/new",
+  userController.getCurrentUser,
   viewController.getCreateTourForm
 );
-router.get("/my-tours", userController.isLoggedIn, viewController.getMyTours);
+router.get(
+  "/my-tours",
+  userController.getCurrentUser,
+  viewController.getMyTours
+);
 router.get("/forgotPassword", viewController.getForgotPasswordForm);
 router.get(
   "/resetPassword/:token",
   userController.checkToken,
   viewController.getresetPasswordForm
 );
-router.get("/tour/:slug", userController.isLoggedIn, viewController.getTour);
+router.get("/:user", userController.getCurrentUser, viewController.getAccount);
+router.get(
+  "/tour/:slug",
+  userController.getCurrentUser,
+  viewController.getTour
+);
 // is logged in 검사하는거 url에 누르면 들어올수있는거 방지할라고 그렇다기에 에러가 없지 그냥 user를 쓰기위해서그럼
 module.exports = router;
