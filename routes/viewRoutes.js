@@ -36,5 +36,10 @@ router.get(
   userController.getCurrentUser,
   viewController.getTour
 );
+router.get(
+  "/:user/:tour/review",
+  userController.getCurrentUser,
+  viewController.getguideReviewForm
+);
 // is logged in 검사하는거 url에 누르면 들어올수있는거 방지할라고 그렇다기에 에러가 없지 그냥 user를 쓰기위해서그럼
 module.exports = router;

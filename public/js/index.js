@@ -7,6 +7,7 @@ import "regenerator-runtime/runtime.js";
 import { login, logout, signup, forgot, reset, updateUser } from "./user.js";
 import { createTour, tourReview } from "./tour.js";
 import { createBooking, deleteBooking } from "./booking.js";
+import { createReview } from "./review.js";
 
 const signupForm = document.querySelector(".form--signup");
 const loginForm = document.querySelector(".form--login");
@@ -19,6 +20,7 @@ const tourForm = document.querySelector(".form--createTour");
 const reviewForm = document.querySelector(".form--review");
 const bookingBtn = document.getElementById("booking");
 const cancelBookingBtn = document.getElementById("cancelBooking");
+const guideReviewForm = document.querySelector(".form--guideReview");
 
 if (signupForm) {
   signupForm.addEventListener("submit", (e) => {
@@ -114,4 +116,12 @@ if (cancelBookingBtn)
     e.preventDefault();
     const { booking } = e.target.dataset;
     deleteBooking(booking);
+  });
+
+if (guideReviewForm)
+  guideReviewForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const rating = document.getElementById("rating").value;
+    const review = document.getElementById("review").value;
+    createReview(rating, review);
   });

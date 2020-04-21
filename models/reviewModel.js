@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const reviewSchema = new mongoose.Schema({
+  rating: { type: Number, required: [true, "rating missing"], min: 1, max: 5 },
   review: {
     type: String,
     required: [true, "please type review content!"],
@@ -15,7 +16,7 @@ const reviewSchema = new mongoose.Schema({
   },
 });
 
-reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
+//reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
 
 reviewSchema.pre(/^find/, function (next) {
   this.populate({

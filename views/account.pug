@@ -25,5 +25,5 @@ block content
             if (new Date(booking.tour.startDate).getTime() > new Date(Date.now()).getTime())
                 button#cancelBooking(data-booking=`${booking.id}`) cancel Tour
             else
-                button(href="#") review Guide
+                a(href=`/${booking.tour.guides.map(el=>el.name)}/${booking.tour.slug}/review`) review Guide
             br
