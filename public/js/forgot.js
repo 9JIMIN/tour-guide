@@ -9,7 +9,7 @@ export const forgot = async (email) => {
   try {
     const res = await axios({
       method: "post",
-      url: "/users/forgotPassword",
+      url: "/users/password_reset",
       data: { email },
     });
     if (res.data.status === "success")

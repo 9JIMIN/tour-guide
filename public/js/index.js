@@ -88,7 +88,9 @@ if (tourForm) {
     const description = document.getElementById("description").value;
     const price = document.getElementById("price").value;
     const group = document.getElementById("group").value;
-    createTour(name, description, price, group);
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
+    createTour(name, description, price, group, startDate, endDate);
   });
 }
 

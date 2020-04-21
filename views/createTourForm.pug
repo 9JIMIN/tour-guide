@@ -1,20 +1,26 @@
 extends base
 
 block content
-    .form--createTour.container.w-25
+    .form--createTour
         form
-            h2.text-center create Tour
-            .form-group
+            h2 create Tour
+            .form-el
                 label(for='name') Name
-                input#name.form-control(type='text' placeholder='Tour Name')
-            .form-grouph
+                input#name(type='text' placeholder='Tour Name')
+            .form-el
                 label(for='description') About Tour
-                input#description.form-control(type='text' placeholder='About Tour')
-            .form-grouph
+                input#description(type='text' placeholder='About Tour')
+            .form-el
                 label(for='price') price
-                input#price.form-control(type='text' placeholder='price')
-            .form-grouph
+                input#price(type='text' placeholder='price')
+            .form-el
                 label(for='group') group
-                input#group.form-control(type='text' placeholder='group')
-            .form-group.text-center
-                button.btn.btn-primary(type="submit") create!
+                input#group(type='text' placeholder='group')
+            .form-el
+                label(for='date') start date
+                input#startDate(type='date')
+            .form-el
+                label(for='date') end date
+                input#endDate(type='date')
+            .form-el
+                button(type="submit") create!

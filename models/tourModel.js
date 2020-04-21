@@ -8,6 +8,8 @@ const tourSchema = new mongoose.Schema(
     description: String,
     price: { type: Number, required: [true, "price is missing!"] },
     group: { type: Number, required: [true, "group is missing!"] },
+    startDate: { type: Date, required: [true, "start date is missing!"] },
+    endDate: { type: Date, required: [true, "end date is missing!"] },
     guides: [
       {
         type: mongoose.Schema.ObjectId,

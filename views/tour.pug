@@ -12,11 +12,4 @@ block content
                 .review--name=`name: ${review.user.name}`
                 .review--content=`review: ${review.review}`
                 br
-        .form--review
-            form
-                .form
-                        label(for="review") review
-                        input#review(type='text' placeholder='review')
-                .form
-                    button(type="submit") make it!
         button#booking(data-tour=`${tour.id}`) book!

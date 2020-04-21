@@ -46,7 +46,7 @@ module.exports = class Email {
     // 2) Define email options
     const mailOptions = {
       from: process.env.EMAIL_USERNAME,
-      to: "909jimin@gmail.com",
+      to: this.to,
       subject,
       html,
       text: htmlToText.fromString(html),

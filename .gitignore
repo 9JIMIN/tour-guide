@@ -3,3 +3,5 @@ config.env
 todo
 .eslintrc.json
 .cache
+public/js/bundle.js
+public/js/bundle.js.map

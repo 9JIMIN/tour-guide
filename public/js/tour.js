@@ -5,12 +5,19 @@
 import axios from "axios";
 import { showAlert } from "./alert";
 
-export const createTour = async (name, description, price, group) => {
+export const createTour = async (
+  name,
+  description,
+  price,
+  group,
+  startDate,
+  endDate
+) => {
   try {
     const res = await axios({
       method: "post",
       url: "/tours",
-      data: { name, description, price, group },
+      data: { name, description, price, group, startDate, endDate },
     });
     if (res.data.status === "success")
       showAlert("success", "tour created successfully!");

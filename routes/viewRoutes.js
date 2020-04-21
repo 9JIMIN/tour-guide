@@ -24,15 +24,15 @@ router.get(
   userController.getCurrentUser,
   viewController.getCreateTourForm
 );
-router.get("/forgotPassword", viewController.getForgotPasswordForm);
+router.get("/password_reset", viewController.getForgotPasswordForm);
 router.get(
-  "/resetPassword/:token",
+  "/password_reset/:token",
   userController.checkToken,
   viewController.getresetPasswordForm
 );
 router.get("/:user", userController.getCurrentUser, viewController.getAccount);
 router.get(
-  "/tour/:slug",
+  "/:user/:tour",
   userController.getCurrentUser,
   viewController.getTour
 );
