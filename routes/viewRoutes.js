@@ -24,11 +24,6 @@ router.get(
   userController.getCurrentUser,
   viewController.getCreateTourForm
 );
-router.get(
-  "/my-tours",
-  userController.getCurrentUser,
-  viewController.getMyTours
-);
 router.get("/forgotPassword", viewController.getForgotPasswordForm);
 router.get(
   "/resetPassword/:token",

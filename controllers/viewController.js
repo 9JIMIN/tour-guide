@@ -1,4 +1,5 @@
 const Tour = require("../models/tourModel");
+const Booking = require("../models/bookingModel");
 
 exports.getOverview = async (req, res, next) => {
   res.status(200).render("overview"); // {}안에 넣어야 전달이 됨.
@@ -12,8 +13,13 @@ exports.getLoginForm = (req, res, next) => {
   res.status(200).render("login");
 };
 
-exports.getAccount = (req, res, next) => {
-  res.status(200).render("account");
+exports.getAccount = async (req, res, next) => {
+  const myTours = await Tour.find({ guides: req.user.id });
+  const myBookings = await Booking.find({ user: req.user.id }).populate({
+    path: "tour",
+    select: "name",
+  });
+  res.status(200).render("account", { myTours, myBookings });
 };
 
 exports.getForgotPasswordForm = (req, res, next) => {

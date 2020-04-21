@@ -1,22 +1,15 @@
 header.header
-    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-        .d-flex.flex-grow-1
-            span.w-100.d-lg-none.d-block
-                //- hidden spacer to center brand on mobile
-            a.navbar-brand(href='/')
-                | Tour-guide
-            .w-100.text-right
-                button.navbar-toggler(type='button' data-toggle='collapse' data-target='#myNavbar7')
-                    span.navbar-toggler-icon
-        #myNavbar7.collapse.navbar-collapse.flex-grow-1.text-right
-            ul.navbar-nav.ml-auto.flex-nowrap
-                li.nav-item
-                    if user
-                        a.nav-link.logout.btn Logout
-                    else
-                        a.nav-link(href='/login') Login
-                li.nav-item
-                    if user
-                        a.nav-link(href=`/${user.name}`) account
-                    else
-                        a.nav-link(href='/join') Signup
+    nav
+        a(href="/") Home
+        ul.navbar-nav.ml-auto.flex-nowrap
+            li.nav-item
+                if user
+                    a.nav-link.logout.btn Logout
+                else
+                    a.nav-link(href='/login') Login
+            li.nav-item
+                if user
+                    a.nav-link(href=`/${user.name}`) account
+                else
+                    a.nav-link(href='/join') Signup
+    div -----------------------------------header-------------------------------------------------

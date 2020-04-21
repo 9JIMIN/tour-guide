@@ -1,7 +1,25 @@
 extends base
 
 block content
-
+    .user ** user **
+        .user-name=`user name: ${user.name}`
+        .user-email=`user email: ${user.email}`
+        br
     a(href="/updateUser") userUpdate
+        br
+        br
+    .line -----------------------------------------------
+    .myTours ** my tours **
+        each tour in myTours
+            .name=`tour name: ${tour.name}`
+            .group=`tour size: ${tour.group}`
+            br
     a(href="/new") createTour
-    a(href="/my-tours") tours i guide
+        br
+        br
+    .line -----------------------------------------------
+    .mybookings ** my booking **
+        each booking in myBookings
+            .name=`booking name: ${booking.tour.name}`
+            .guide=`tour guide: ${booking.tour.guides.map(el=>el.name)}`
+            br
