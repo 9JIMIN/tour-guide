@@ -18,12 +18,6 @@ const userSchema = new mongoose.Schema({
     enum: ["user", "guide", "admin"],
     default: "user",
   },
-  tour: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: "Tour",
-    },
-  ],
   ratingsAverage: {
     type: Number,
     default: 3,

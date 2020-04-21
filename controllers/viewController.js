@@ -17,7 +17,7 @@ exports.getAccount = async (req, res, next) => {
   const myTours = await Tour.find({ guides: req.user.id });
   const myBookings = await Booking.find({ user: req.user.id }).populate({
     path: "tour",
-    select: "name",
+    select: "name startDate",
   });
   res.status(200).render("account", { myTours, myBookings });
 };
@@ -48,6 +48,5 @@ exports.getTour = async (req, res, next) => {
     path: "reviews",
     fields: "user",
   });
-  req.app.locals.tourId = tour.id;
   res.status(200).render("tour", { tour });
 };

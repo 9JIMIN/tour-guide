@@ -22,10 +22,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 app.use(morgan("dev"));
 
-app.use("/", viewRouter);
-app.use("/tours", tourRouter);
 app.use("/users", userRouter);
+app.use("/tours", tourRouter);
 app.use("/reviews", reviewRouter);
 app.use("/bookings", bookingRouter);
+app.use("/", viewRouter);
 app.use(errorController);
 module.exports = app;

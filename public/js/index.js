@@ -3,16 +3,14 @@
 /* eslint-disable node/no-unsupported-features/es-syntax */
 import "core-js/stable";
 import "regenerator-runtime/runtime.js";
-import { signup } from "./signup.js";
-import { login, logout } from "./login.js";
-import { updateUser } from "./updateUser";
-import { forgot, reset } from "./forgot";
+
+import { login, logout, signup, forgot, reset, updateUser } from "./user.js";
 import { createTour, tourReview } from "./tour.js";
-import { createBooking } from "./booking.js";
+import { createBooking, deleteBooking } from "./booking.js";
 
 const signupForm = document.querySelector(".form--signup");
 const loginForm = document.querySelector(".form--login");
-const logoutBtn = document.querySelector(".logout");
+const logoutBtn = document.getElementById("logout");
 const updateData = document.querySelector(".form--updateData");
 const updatePassword = document.querySelector(".form--updatePassword");
 const forgotPassword = document.querySelector(".form--forgotPassword");
@@ -20,6 +18,7 @@ const resetPassword = document.querySelector(".form--resetPassword");
 const tourForm = document.querySelector(".form--createTour");
 const reviewForm = document.querySelector(".form--review");
 const bookingBtn = document.getElementById("booking");
+const cancelBookingBtn = document.getElementById("cancelBooking");
 
 if (signupForm) {
   signupForm.addEventListener("submit", (e) => {
@@ -104,7 +103,15 @@ if (reviewForm) {
 
 if (bookingBtn)
   bookingBtn.addEventListener("click", (e) => {
+    e.preventDefault();
     e.target.textContent = "Processing...";
     const { tour } = e.target.dataset;
     createBooking(tour);
+  });
+
+if (cancelBookingBtn)
+  cancelBookingBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const { booking } = e.target.dataset;
+    deleteBooking(booking);
   });

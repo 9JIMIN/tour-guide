@@ -1,15 +1,15 @@
 header.header
     nav
         a(href="/") Home
-        ul.navbar-nav.ml-auto.flex-nowrap
-            li.nav-item
+        ul
+            li
                 if user
-                    a.nav-link.logout.btn Logout
+                    button#logout Logout
                 else
-                    a.nav-link(href='/login') Login
-            li.nav-item
+                    a(href='/login') Login
+            li
                 if user
-                    a.nav-link(href=`/${user.name}`) account
+                    a(href=`/${user.name}`) account
                 else
-                    a.nav-link(href='/join') Signup
+                    a(href='/join') Signup
     div -----------------------------------header-------------------------------------------------

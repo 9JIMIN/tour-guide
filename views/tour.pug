@@ -1,8 +1,8 @@
 extends base
 
 block content
-    .tour.container **about tour**
-        .tour=`name: ${tour.name}`
+    .tour **about tour**
+        .name=`name: ${tour.name}`
         .description=`description: ${tour.description}`
         each guide in tour.guides
             .guide=`guides: ${guide.name}`

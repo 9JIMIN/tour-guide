@@ -14,7 +14,6 @@ exports.createTour = catchAsync(async (req, res, next) => {
   const newTour = await Tour.create(req.body);
 
   req.user.role = "guide";
-  req.user.tour.push(newTour.id);
   await req.user.save({ validateBeforeSave: false });
 
   res.status(201).json({

@@ -22,8 +22,8 @@ block content
         each booking in myBookings
             .name=`booking name: ${booking.tour.name}`
             .guide=`tour guide: ${booking.tour.guides.map(el=>el.name)}`
-            if (booking.tour.startDate>new Date(Date.now()))
-                button deleteTour
+            if (new Date(booking.tour.startDate).getTime() > new Date(Date.now()).getTime())
+                button#cancelBooking(data-booking=`${booking.id}`) cancel Tour
             else
-                button(href="#") reviewGuide
+                button(href="#") review Guide
             br

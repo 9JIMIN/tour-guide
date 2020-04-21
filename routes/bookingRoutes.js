@@ -4,10 +4,9 @@ const userController = require("../controllers/userController");
 
 const router = express.Router();
 
-router.post(
-  "/",
-  userController.getCurrentUser,
-  bookingController.createBooking
-);
+router
+  .route("/")
+  .post(userController.getCurrentUser, bookingController.createBooking)
+  .delete(bookingController.deleteBooking);
 
 module.exports = router;

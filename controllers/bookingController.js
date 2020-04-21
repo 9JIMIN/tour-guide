@@ -12,3 +12,13 @@ exports.createBooking = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.deleteBooking = catchAsync(async (req, res, next) => {
+  console.log(req.body.booking);
+  await Booking.findByIdAndDelete(req.body.booking);
+
+  res.status(200).json({
+    status: "success",
+    data: null,
+  });
+});

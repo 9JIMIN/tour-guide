@@ -8,7 +8,7 @@ block content
                 each guide in tour.guides
                     .guide= `guide: ${guide.name}`
                 .description=`About tour: ${tour.description}`
-                a(href=`/${user.name}/${tour.slug}`) book now!
+                a(href=`/${tour.guides[0].name}/${tour.slug}`) book now!
                 br
                 br
 

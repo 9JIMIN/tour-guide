@@ -14,9 +14,23 @@ export const createBooking = async (tour) => {
     });
     if (res.data.status === "success")
       showAlert("success", "Booking successfully!");
-    window.setTimeout(() => {
-      location.assign("/");
-    }, 1000);
+
+    location.assign("/");
+  } catch (err) {
+    showAlert("error", err.response.data.message);
+  }
+};
+
+export const deleteBooking = async (booking) => {
+  try {
+    const res = await axios({
+      method: "delete",
+      url: "/bookings",
+      data: { booking },
+    });
+    if (res.data.status === "success") showAlert("success", "booking deleted!");
+
+    location.assign("/");
   } catch (err) {
     showAlert("error", err.response.data.message);
   }
