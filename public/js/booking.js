@@ -14,8 +14,7 @@ export const createBooking = async (tour) => {
     });
     if (res.data.status === "success")
       showAlert("success", "Booking successfully!");
-
-    location.assign("/");
+    window.history.back();
   } catch (err) {
     showAlert("error", err.response.data.message);
   }
@@ -29,8 +28,7 @@ export const deleteBooking = async (booking) => {
       data: { booking },
     });
     if (res.data.status === "success") showAlert("success", "booking deleted!");
-
-    location.assign("/");
+    window.history.back();
   } catch (err) {
     showAlert("error", err.response.data.message);
   }

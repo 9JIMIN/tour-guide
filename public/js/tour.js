@@ -21,22 +21,7 @@ export const createTour = async (
     });
     if (res.data.status === "success")
       showAlert("success", "tour created successfully!");
-    location.assign("/");
-  } catch (err) {
-    showAlert("error", err.response.data.message);
-  }
-};
-
-export const tourReview = async (review) => {
-  try {
-    const res = await axios({
-      method: "post",
-      url: "/reviews",
-      data: { review },
-    });
-    if (res.data.status === "success")
-      showAlert("success", "review created successfully!");
-    location.reload();
+    window.history.back();
   } catch (err) {
     showAlert("error", err.response.data.message);
   }

@@ -1,15 +1,12 @@
 extends base
 
 block content
-    .tour **about tour**
+    .tour ** about tour **
         .name=`name: ${tour.name}`
         .description=`description: ${tour.description}`
         each guide in tour.guides
             .guide=`guides: ${guide.name}`
         br
-        .reviews **reviews**
-            each review in tour.reviews
-                .review--name=`name: ${review.user.name}`
-                .review--content=`review: ${review.review}`
-                br
+        
+        .booking ** booking!! **
         button#booking(data-tour=`${tour.id}`) book!

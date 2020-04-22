@@ -1,14 +1,18 @@
 extends base
 
 block content
-    main.main
+    main.main 
+        h3 Every tour
         each tour in tours
             .tours.container(href="/tour")
                 .tour=`tour name: ${tour.name}`
                 each guide in tour.guides
-                    .guide= `guide: ${guide.name}`
+                    .guide= `guide: ${guide.name} / (${guide.ratingsAverage})`
                 .description=`About tour: ${tour.description}`
                 a(href=`/${tour.guides[0].name}/${tour.slug}`) book now!
                 br
                 br
+        h3 Top 10 guides
+        each guide, i in guides
+            .name=`${i+1}. ${guide.name} (${guide.ratingsAverage}/5)`
 

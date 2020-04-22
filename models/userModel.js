@@ -20,9 +20,14 @@ const userSchema = new mongoose.Schema({
   },
   ratingsAverage: {
     type: Number,
-    default: 3,
+    default: 0,
     min: 0,
     max: 5,
+    set: (val) => Math.round(val * 100) / 100,
+  },
+  ratingsQuantity: {
+    type: Number,
+    default: 0,
   },
   password: {
     type: String,

@@ -4,6 +4,7 @@ block content
     .user ** user **
         .user-name=`user name: ${user.name}`
         .user-email=`user email: ${user.email}`
+        .user-ratings=`user ratings:(${user.ratingsAverage}/5) quantity:${user.ratingsQuantity}`
         br
     a(href="/updateUser") userUpdate
         br
