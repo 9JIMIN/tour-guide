@@ -5,3 +5,5 @@ todo
 .cache
 public/js/bundle.js
 public/js/bundle.js.map
+public/img
+guider-server-auth.pem

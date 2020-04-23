@@ -26,3 +26,7 @@ body {
 .alert--error {
   background-color: #eb4d4b;
 }
+
+.user-photo {
+  display: block;
+}

@@ -5,15 +5,15 @@ import "core-js/stable";
 import "regenerator-runtime/runtime.js";
 
 import { login, logout, signup, forgot, reset, updateUser } from "./user.js";
-import { createTour, tourReview } from "./tour.js";
+import { createTour } from "./tour.js";
 import { createBooking, deleteBooking } from "./booking.js";
 import { createReview } from "./review.js";
 
 const signupForm = document.querySelector(".form--signup");
 const loginForm = document.querySelector(".form--login");
 const logoutBtn = document.getElementById("logout");
-const updateData = document.querySelector(".form--updateData");
-const updatePassword = document.querySelector(".form--updatePassword");
+const updateDataForm = document.querySelector(".form--updateData");
+const updatePasswordForm = document.querySelector(".form--updatePassword");
 const forgotPassword = document.querySelector(".form--forgotPassword");
 const resetPassword = document.querySelector(".form--resetPassword");
 const tourForm = document.querySelector(".form--createTour");
@@ -44,16 +44,18 @@ if (loginForm) {
 
 if (logoutBtn) logoutBtn.addEventListener("click", logout);
 
-if (updateData) {
-  updateData.addEventListener("submit", (e) => {
+if (updateDataForm) {
+  updateDataForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    updateUser({ name, email }, "user");
+    const form = new FormData();
+    form.append("name", document.getElementById("name").value);
+    form.append("email", document.getElementById("email").value);
+    form.append("photo", document.getElementById("photo").files[0]);
+    updateUser(form, "user");
   });
 }
-if (updatePassword) {
-  updatePassword.addEventListener("submit", (e) => {
+if (updatePasswordForm) {
+  updatePasswordForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const currentPassword = document.getElementById("currentPassword").value;
     const newPassword = document.getElementById("newPassword").value;

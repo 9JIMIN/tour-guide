@@ -35,7 +35,7 @@ exports.getCreateTourForm = (req, res, next) => {
 };
 
 exports.getUpdateUserForm = (req, res, next) => {
-  res.status(200).render("updateUser");
+  res.status(200).render("updateUserForm");
 };
 
 exports.getMyTours = async (req, res, next) => {

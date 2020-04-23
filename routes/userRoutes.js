@@ -6,7 +6,13 @@ const router = express.Router();
 router.post("/signup", userController.signup);
 router.post("/login", userController.login);
 router.get("/logout", userController.logout);
-router.patch("/me", userController.getCurrentUser, userController.updateUser);
+router.patch(
+  "/me",
+  userController.getCurrentUser,
+  userController.uploadUserPhoto,
+  userController.resizeUserPhoto,
+  userController.updateUser
+);
 router.patch(
   "/password",
   userController.getCurrentUser,

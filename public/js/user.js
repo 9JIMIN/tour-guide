@@ -68,7 +68,7 @@ export const updateUser = async (data, type) => {
     });
     if (res.data.status === "success") {
       showAlert("success", "user data changed!");
-      location.assign("/me");
+      window.history.back();
     }
   } catch (err) {
     showAlert("error", err.response.data.message);

@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema({
     required: [true, "email is missing."],
     unique: true,
   },
+  photo: {
+    type: String,
+  },
   role: {
     type: String,
     enum: ["user", "guide", "admin"],
