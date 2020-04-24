@@ -1,0 +1,36 @@
+extends base
+
+block content
+    .form--updateTour
+        form
+            h2 update Tour
+            .form-el
+                label(for='name') Name
+                input#name(type='text' placeholder='Tour Name' value=`${tour.name}`)
+            .form-el
+                label(for='description') About Tour
+                input#description(type='text' placeholder='About Tour' value=`${tour.description}`)
+            .form-el
+                label(for='price') price
+                input#price(type='text' placeholder='price' value=`${tour.price}`)
+            .form-el
+                label(for='group') group
+                input#group(type='text' placeholder='group' value=`${tour.group}`)
+            .form-el
+                label(for='date') start date
+                input#startDate(type='date' value=`${tour.startDate.toISOString().slice(0,10)}`)
+            .form-el
+                label(for='date') end date
+                input#endDate(type='date' value=`${tour.endDate.toISOString().slice(0,10)}`)
+            .form-el
+                img.block(src=`/img/tours/${tour.imageCover}` alt=`cover image of ${tour.name}` width="100")
+                label(for='imageCover') Cover image
+                input#imageCover(type="file" accept="image/*")
+            .form-el
+                .block
+                    each image, i in tour.images
+                        img(src=`/img/tours/${image}` alt=`image of ${tour.name}-${i+1}` width="100")
+                label(for='images') images
+                input#images(type='file' accept="image/*" multiple name="images")
+            .form-el
+                button(type="submit") done!

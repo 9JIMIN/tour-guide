@@ -2,6 +2,10 @@ extends base
 
 block content
     .tour ** about tour **
+        img.block(src=`/img/tours/${tour.imageCover}` alt=`image cover` width="100")
+        .images
+            each image, i in tour.images
+                img.imaged(src=`/img/tours/${image}` alt=`image of ${tour.name}-${i+1}` width="100")
         .name=`name: ${tour.name}`
         .description=`description: ${tour.description}`
         each guide in tour.guides

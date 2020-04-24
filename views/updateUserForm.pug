@@ -11,7 +11,7 @@ block content
                 label(for='email') Email address
                 input#email.form-control(type='email' placeholder='Enter email' value=`${user.email}`)
             .form-group
-                img.user-photo(src=`/img/users/${user.photo}` alt='user photo' width="100")
+                img.block(src=`/img/users/${user.photo}` alt='user photo' width="100")
                 label(for='photo') Choose photo
                 input#photo.form-control(type='file' accept="image/*")
             .form-group.text-center

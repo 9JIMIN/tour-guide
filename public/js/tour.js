@@ -5,22 +5,30 @@
 import axios from "axios";
 import { showAlert } from "./alert";
 
-export const createTour = async (
-  name,
-  description,
-  price,
-  group,
-  startDate,
-  endDate
-) => {
+export const createTour = async (data) => {
   try {
     const res = await axios({
       method: "post",
       url: "/tours",
-      data: { name, description, price, group, startDate, endDate },
+      data,
     });
     if (res.data.status === "success")
       showAlert("success", "tour created successfully!");
+    window.history.back();
+  } catch (err) {
+    showAlert("error", err.response.data.message);
+  }
+};
+
+export const updateTour = async (data) => {
+  try {
+    const res = await axios({
+      method: "patch",
+      url: "/tours",
+      data,
+    });
+    if (res.data.status === "success")
+      showAlert("success", "tour updated successfully!");
     window.history.back();
   } catch (err) {
     showAlert("error", err.response.data.message);

@@ -5,9 +5,10 @@ block content
         h3 Every tour
         each tour in tours
             .tours.container(href="/tour")
+                img.cover(src=`/img/tours/${tour.imageCover}` alt=`cover image of ${tour.name}` width="100")
                 .tour=`tour name: ${tour.name}`
                 each guide in tour.guides
-                    .guide= `guide: ${guide.name} / (${guide.ratingsAverage})`
+                    .guide= `guide: ${guide.name} / (${guide.ratingsAverage}/5)`
                 .description=`About tour: ${tour.description}`
                 a(href=`/${tour.guides[0].name}/${tour.slug}`) book now!
                 br

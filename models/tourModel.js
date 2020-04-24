@@ -3,9 +3,15 @@ const slugify = require("slugify");
 
 const tourSchema = new mongoose.Schema(
   {
-    name: { type: String, required: [true, "Tour name is missing!"] },
+    name: {
+      type: String,
+      required: [true, "Tour name is missing!"],
+      unique: true,
+    },
     slug: String,
     description: String,
+    imageCover: String,
+    images: [String],
     price: { type: Number, required: [true, "price is missing!"] },
     group: { type: Number, required: [true, "group is missing!"] },
     startDate: { type: Date, required: [true, "start date is missing!"] },

@@ -2,12 +2,12 @@ extends base
 
 block content
     .user ** user **
-        img.user-photo(src=`/img/users/${user.photo}` alt=`photo of ${user.name}` width="100")
+        img.block(src=`/img/users/${user.photo}` alt=`photo of ${user.name}` width="100")
         .user-name=`user name: ${user.name}`
         .user-email=`user email: ${user.email}`
         .user-ratings=`user ratings:(${user.ratingsAverage}/5) quantity:${user.ratingsQuantity}`
         br
-    a(href="/updateUser") userUpdate
+    a(href="/update_user") userUpdate
         br
         br
     .line -----------------------------------------------
@@ -15,6 +15,7 @@ block content
         each tour in myTours
             .name=`tour name: ${tour.name}`
             .group=`tour size: ${tour.group}`
+            a(href=`/${user.name}/${tour.slug}/edit`) edit tour
             br
     a(href="/new") createTour
         br

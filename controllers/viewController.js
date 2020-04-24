@@ -23,14 +23,15 @@ exports.getAccount = async (req, res, next) => {
 };
 
 exports.getForgotPasswordForm = (req, res, next) => {
-  res.status(200).render("forgot");
+  res.status(200).render("forgotPasswordForm");
 };
 
 exports.getresetPasswordForm = (req, res, next) => {
-  res.status(200).render("resetPassword");
+  res.status(200).render("resetPasswordForm");
 };
 
 exports.getCreateTourForm = (req, res, next) => {
+  req.app.locals.tour = undefined;
   res.status(200).render("createTourForm");
 };
 
@@ -53,5 +54,11 @@ exports.getTour = async (req, res, next) => {
 
 exports.getguideReviewForm = async (req, res, next) => {
   req.app.locals.tourId = (await Tour.findOne({ slug: req.params.tour })).id;
-  res.status(200).render("guideReviewForm");
+  res.status(200).render("createReviewForm");
+};
+
+exports.getUpdateTourForm = async (req, res, next) => {
+  req.app.locals.tour = await Tour.findOne({ slug: req.params.tour });
+  const { tour } = req.app.locals;
+  res.status(200).render("updateTourForm", { tour });
 };

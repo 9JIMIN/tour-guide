@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-undef */
 /* eslint-disable import/extensions */
 /* eslint-disable node/no-unsupported-features/es-syntax */
@@ -5,7 +6,7 @@ import "core-js/stable";
 import "regenerator-runtime/runtime.js";
 
 import { login, logout, signup, forgot, reset, updateUser } from "./user.js";
-import { createTour } from "./tour.js";
+import { createTour, updateTour } from "./tour.js";
 import { createBooking, deleteBooking } from "./booking.js";
 import { createReview } from "./review.js";
 
@@ -21,6 +22,7 @@ const reviewForm = document.querySelector(".form--review");
 const bookingBtn = document.getElementById("booking");
 const cancelBookingBtn = document.getElementById("cancelBooking");
 const guideReviewForm = document.querySelector(".form--guideReview");
+const updateTourForm = document.querySelector(".form--updateTour");
 
 if (signupForm) {
   signupForm.addEventListener("submit", (e) => {
@@ -87,13 +89,38 @@ if (resetPassword) {
 if (tourForm) {
   tourForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const name = document.getElementById("name").value;
-    const description = document.getElementById("description").value;
-    const price = document.getElementById("price").value;
-    const group = document.getElementById("group").value;
-    const startDate = document.getElementById("startDate").value;
-    const endDate = document.getElementById("endDate").value;
-    createTour(name, description, price, group, startDate, endDate);
+    const form = new FormData();
+    form.append("name", document.getElementById("name").value);
+    form.append("description", document.getElementById("description").value);
+    form.append("price", document.getElementById("price").value);
+    form.append("group", document.getElementById("group").value);
+    form.append("startDate", document.getElementById("startDate").value);
+    form.append("endDate", document.getElementById("endDate").value);
+    form.append("imageCover", document.getElementById("imageCover").files[0]);
+    const ins = document.getElementById("images").files.length;
+    for (let x = 0; x < ins; x++) {
+      form.append("images", document.getElementById("images").files[x]);
+    }
+    createTour(form);
+  });
+}
+
+if (updateTourForm) {
+  updateTourForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const form = new FormData();
+    form.append("name", document.getElementById("name").value);
+    form.append("description", document.getElementById("description").value);
+    form.append("price", document.getElementById("price").value);
+    form.append("group", document.getElementById("group").value);
+    form.append("startDate", document.getElementById("startDate").value);
+    form.append("endDate", document.getElementById("endDate").value);
+    form.append("imageCover", document.getElementById("imageCover").files[0]);
+    const ins = document.getElementById("images").files.length;
+    for (let x = 0; x < ins; x++) {
+      form.append("images", document.getElementById("images").files[x]);
+    }
+    updateTour(form);
   });
 }
 

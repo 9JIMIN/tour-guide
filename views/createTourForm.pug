@@ -18,9 +18,15 @@ block content
                 input#group(type='text' placeholder='group')
             .form-el
                 label(for='date') start date
-                input#startDate(type='date')
+                input#startDate(type='date' value=`${new Date(Date.now()).toISOString().slice(0,10)}`)
             .form-el
                 label(for='date') end date
-                input#endDate(type='date')
+                input#endDate(type='date' value=`${new Date(Date.now()).toISOString().slice(0,10)}`)
+            .form-el
+                label(for='imageCover') Cover image
+                input#imageCover(type="file" accept="image/*")
+            .form-el
+                label(for='images') images
+                input#images(type='file' accept="image/*" multiple name="images")
             .form-el
                 button(type="submit") create!
