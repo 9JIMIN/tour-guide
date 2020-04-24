@@ -117,8 +117,8 @@ if (updateTourForm) {
     form.append("endDate", document.getElementById("endDate").value);
     form.append("imageCover", document.getElementById("imageCover").files[0]);
     const ins = document.getElementById("images").files.length;
-    for (let x = 0; x < ins; x++) {
-      form.append("images", document.getElementById("images").files[x]);
+    for (let i = 0; i < ins; i++) {
+      form.append("images", document.getElementById("images").files[i]);
     }
     updateTour(form);
   });

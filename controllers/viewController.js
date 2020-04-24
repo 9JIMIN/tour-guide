@@ -59,6 +59,5 @@ exports.getguideReviewForm = async (req, res, next) => {
 
 exports.getUpdateTourForm = async (req, res, next) => {
   req.app.locals.tour = await Tour.findOne({ slug: req.params.tour });
-  const { tour } = req.app.locals;
-  res.status(200).render("updateTourForm", { tour });
+  res.status(200).render("updateTourForm");
 };
