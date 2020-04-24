@@ -25,7 +25,7 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
   const { tour } = req.app.locals;
 
   if (req.files.imageCover) {
-    if (tour && tour.imageCover)
+    if (tour && tour.imageCover !== "default-imageCover.jpg")
       unlinkSync(`public/img/tours/${tour.imageCover}`);
 
     req.body.imageCover = `tour-${req.user.id}-${Date.now()}-cover.jpeg`;
@@ -37,7 +37,7 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
   }
 
   if (req.files.images) {
-    if (tour && tour.images) {
+    if (tour && tour.images[0] !== "default-image.jpg") {
       for (let i = 0; i < tour.images.length; i++) {
         unlinkSync(`public/img/tours/${tour.images[i]}`);
       }
@@ -69,6 +69,13 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 
 exports.createTour = catchAsync(async (req, res, next) => {
   req.body.guides = req.user.id;
+  if (req.body.imageCover === "undefined") {
+    req.body.imageCover = "default-imageCover.jpg";
+  }
+
+  if (!req.body.images) {
+    req.body.images = ["default-image.jpg"];
+  }
   const newTour = await Tour.create(req.body);
 
   req.user.role = "guide";
@@ -89,19 +96,28 @@ exports.updateTour = catchAsync(async (req, res, next) => {
   if (!req.body.images) {
     req.body.images = tour.images;
   }
-  const updatedTour = await Tour.findByIdAndUpdate(
-    req.app.locals.tour.id,
-    req.body,
-    {
-      runValidators: true,
-      new: true,
-    }
-  );
+  const updatedTour = await Tour.findByIdAndUpdate(tour.id, req.body, {
+    runValidators: true,
+    new: true,
+  });
 
   req.app.locals.tour = undefined;
 
   res.status(200).json({
     status: "success",
     data: updatedTour,
+  });
+});
+
+exports.deleteTour = catchAsync(async (req, res, next) => {
+  const tour = await Tour.findById(req.params.id);
+  if (tour.imageCover !== "default-imageCover.jpg")
+    unlinkSync(`public/img/tours/${tour.imageCover}`);
+  if (tour.images[0] !== "default-image.jpg") {
+    tour.images.forEach((el) => unlinkSync(`public/img/tours/${el}`));
+  }
+  await Tour.findByIdAndDelete(req.params.id);
+  res.status(204).json({
+    status: "success",
   });
 });

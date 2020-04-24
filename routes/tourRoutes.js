@@ -20,4 +20,6 @@ router
     tourController.updateTour
   );
 
+router.delete("/:id", tourController.deleteTour);
+
 module.exports = router;

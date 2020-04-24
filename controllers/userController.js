@@ -187,6 +187,7 @@ exports.checkToken = catchAsync(async (req, res, next) => {
 
 exports.resetPassword = catchAsync(async (req, res, next) => {
   const user = req.app.locals.reset;
+  req.app.locals.reset = undefined;
 
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;

@@ -6,23 +6,27 @@ import "core-js/stable";
 import "regenerator-runtime/runtime.js";
 
 import { login, logout, signup, forgot, reset, updateUser } from "./user.js";
-import { createTour, updateTour } from "./tour.js";
+import { createTour, updateTour, deleteTour } from "./tour.js";
 import { createBooking, deleteBooking } from "./booking.js";
 import { createReview } from "./review.js";
 
+//user
 const signupForm = document.querySelector(".form--signup");
 const loginForm = document.querySelector(".form--login");
-const logoutBtn = document.getElementById("logout");
 const updateDataForm = document.querySelector(".form--updateData");
 const updatePasswordForm = document.querySelector(".form--updatePassword");
+const logoutBtn = document.getElementById("logout");
 const forgotPassword = document.querySelector(".form--forgotPassword");
 const resetPassword = document.querySelector(".form--resetPassword");
+//tour
 const tourForm = document.querySelector(".form--createTour");
-const reviewForm = document.querySelector(".form--review");
+const updateTourForm = document.querySelector(".form--updateTour");
+const deleteTourBtn = document.querySelectorAll(".deleteTour");
+//review
+const guideReviewForm = document.querySelector(".form--guideReview");
+//booking
 const bookingBtn = document.getElementById("booking");
 const cancelBookingBtn = document.getElementById("cancelBooking");
-const guideReviewForm = document.querySelector(".form--guideReview");
-const updateTourForm = document.querySelector(".form--updateTour");
 
 if (signupForm) {
   signupForm.addEventListener("submit", (e) => {
@@ -124,14 +128,6 @@ if (updateTourForm) {
   });
 }
 
-if (reviewForm) {
-  reviewForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const review = document.getElementById("review").value;
-    tourReview(review);
-  });
-}
-
 if (bookingBtn)
   bookingBtn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -154,3 +150,12 @@ if (guideReviewForm)
     const review = document.getElementById("review").value;
     createReview(rating, review);
   });
+
+if (deleteTourBtn)
+  deleteTourBtn.forEach((el) =>
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      const { tourId } = e.target.dataset;
+      deleteTour(tourId);
+    })
+  );

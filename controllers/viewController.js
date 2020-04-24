@@ -31,7 +31,6 @@ exports.getresetPasswordForm = (req, res, next) => {
 };
 
 exports.getCreateTourForm = (req, res, next) => {
-  req.app.locals.tour = undefined;
   res.status(200).render("createTourForm");
 };
 

@@ -9,7 +9,9 @@ header.header ----------- header --------------
                     a(href='/login') Login
             li
                 if user
-                    a(href=`/${user.name}`)=user.name
+                    a(href=`/${user.name}`)
+                        img(src=`/img/users/${user.photo}` width="50")
+                        span=`${user.name}`
                 else
                     a(href='/join') Signup
     .body ----------- body --------------

@@ -15,7 +15,8 @@ block content
         each tour in myTours
             .name=`tour name: ${tour.name}`
             .group=`tour size: ${tour.group}`
-            a(href=`/${user.name}/${tour.slug}/edit`) edit tour
+            a.block(href=`/${user.name}/${tour.slug}/edit`) edit tour
+            button.deleteTour(data-tour-id=`${tour.id}`) delete tour
             br
     a(href="/new") createTour
         br

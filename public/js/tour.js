@@ -34,3 +34,16 @@ export const updateTour = async (data) => {
     showAlert("error", err.response.data.message);
   }
 };
+
+export const deleteTour = async (tourId) => {
+  try {
+    const res = await axios({
+      method: "delete",
+      url: `/tours/${tourId}`,
+    });
+    if (res.status === 204) showAlert("success", "tour deleted successfully!");
+    location.reload();
+  } catch (err) {
+    showAlert("error", err.response.data.message);
+  }
+};
