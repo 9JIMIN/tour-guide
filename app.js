@@ -4,8 +4,10 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
-// const cors = require("cors");
+const bodyParser = require("body-parser");
+
 const errorController = require("./controllers/errorController");
+const bookingController = require("./controllers/bookingController");
 const tourRouter = require("./routes/tourRoutes");
 const userRouter = require("./routes/userRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
@@ -13,14 +15,20 @@ const bookingRouter = require("./routes/bookingRoutes");
 const viewRouter = require("./routes/viewRoutes");
 
 const app = express();
-app.enable("trust proxy");
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(cors());
 app.options("*", cors());
 
-app.use(express.json());
+app.post(
+  "/webhook-checkout",
+  bodyParser.raw({ type: "application/json" }),
+  bookingController.webhookCheckout
+);
+
+app.use(express.json({ limit: "10kb" }));
+app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(helmet());
 app.use(cookieParser());
