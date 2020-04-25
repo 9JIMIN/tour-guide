@@ -9,6 +9,15 @@ const bookingSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "Tour",
   },
+  price: Number,
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
+  paid: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const Booking = mongoose.model("Booking", bookingSchema);

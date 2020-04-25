@@ -13,4 +13,8 @@ block content
         br
         
         .booking ** booking!! **
-        button#booking(data-tour=`${tour.id}`) book!
+            if user
+                button#booking(data-tour-id=`${tour.id}` data-user-name=`${user.name}`) book!
+            else
+                a(href="/login") login to book!
+            

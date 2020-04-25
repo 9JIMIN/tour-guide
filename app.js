@@ -2,6 +2,8 @@ const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const helmet = require("helmet");
 // const cors = require("cors");
 const errorController = require("./controllers/errorController");
 const tourRouter = require("./routes/tourRoutes");
@@ -11,14 +13,16 @@ const bookingRouter = require("./routes/bookingRoutes");
 const viewRouter = require("./routes/viewRoutes");
 
 const app = express();
+app.enable("trust proxy");
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
-// app.use(cors());
-// app.options("*", cors());
+app.use(cors());
+app.options("*", cors());
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(helmet());
 app.use(cookieParser());
 app.use(morgan("dev"));
 

@@ -5,16 +5,20 @@
 import axios from "axios";
 import { showAlert } from "./alert";
 
-export const createBooking = async (tour) => {
+const stripe = Stripe("pk_test_PYDZp5HEYwoxmuIklFO0HulV00sQQls0cW");
+
+export const createBooking = async (tourId, userName) => {
   try {
-    const res = await axios({
-      method: "post",
-      url: "/bookings",
-      data: { tour },
+    // create session
+    const session = await axios({
+      method: "get",
+      url: `/bookings/checkout-session/${tourId}/${userName}`,
     });
-    if (res.data.status === "success")
-      showAlert("success", "Booking successfully!");
-    window.history.back();
+
+    // redirect to checkout page
+    await stripe.redirectToCheckout({
+      sessionId: session.data.session.id,
+    });
   } catch (err) {
     showAlert("error", err.response.data.message);
   }

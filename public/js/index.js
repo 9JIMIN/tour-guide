@@ -132,8 +132,9 @@ if (bookingBtn)
   bookingBtn.addEventListener("click", (e) => {
     e.preventDefault();
     e.target.textContent = "Processing...";
-    const { tour } = e.target.dataset;
-    createBooking(tour);
+    const { tourId } = e.target.dataset;
+    const { userName } = e.target.dataset;
+    createBooking(tourId, userName);
   });
 
 if (cancelBookingBtn)

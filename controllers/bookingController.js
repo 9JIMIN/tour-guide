@@ -1,15 +1,33 @@
+const stripe = require("stripe")("sk_test_QAvKXqZpGWHeuuJvDCAWWg8w00zGTpKVE2");
 const catchAsync = require("../utils/catchAsync");
 const Booking = require("../models/bookingModel");
+const Tour = require("../models/tourModel");
 
-exports.createBooking = catchAsync(async (req, res, next) => {
-  req.body.user = req.user.id;
-  const newBooking = await Booking.create(req.body);
+exports.getCheckoutSession = catchAsync(async (req, res, next) => {
+  const tour = await Tour.findById(req.params.tourId);
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items: [
+      {
+        name: `${tour.name}`,
+        description: tour.description,
+        images: [
+          `${req.protocol}://${req.get("host")}/img/tours/${tour.imageCover}`,
+        ],
+        amount: tour.price * 100,
+        currency: "usd",
+        quantity: 1,
+      },
+    ],
+    success_url: `${req.protocol}://${req.get("host")}/${req.params.userName}`,
+    cancel_url: `${req.protocol}://${req.get("host")}/${req.params.userName}/${
+      tour.slug
+    }`,
+  });
 
-  res.status(201).json({
+  res.status(200).json({
     status: "success",
-    data: {
-      newBooking,
-    },
+    session,
   });
 });
 
