@@ -1,20 +1,19 @@
 extends base
 
 block content
-    .form--signup.container.w-25
-        form
-            h2.text-center Create your accout
-            .form-group
+    h3 Sign up
+        form.box.form--signup
+            .form-el
                 label(for='name') Name
-                input#name.form-control(placeholder='Your name')
-            .form-group
+                input#name(placeholder='Your name')
+            .form-el
                 label(for='email') Email address
-                input#email.form-control(type='email' placeholder='Enter email')
-            .form-group
+                input#email(type='email' placeholder='Enter email')
+            .form-el
                 label(for='password') Password
-                input#password.form-control(type='password' placeholder='Your Password')
-            .form-group
+                input#password(type='password' placeholder='Your Password')
+            .form-el
                 label(for='passwordConfirm') Confirm Password
-                input#passwordConfirm.form-control(type='password' placeholder='Confirm Password')
-            .form-group.text-center
-                button.btn.btn-primary(type="submit") Sign Up
+                input#passwordConfirm(type='password' placeholder='Confirm Password')
+            .form-el
+                button.update-btn(type="submit") Sign Up

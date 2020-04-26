@@ -1,33 +1,51 @@
 extends base
 
 block content
-    .user ** user **
-        img.block(src=`/img/users/${user.photo}` alt=`photo of ${user.name}` width="100")
-        .user-name=`user name: ${user.name}`
-        .user-email=`user email: ${user.email}`
-        .user-ratings=`user ratings:(${user.ratingsAverage}/5) quantity:${user.ratingsQuantity}`
-        br
-    a(href="/update_user") userUpdate
-        br
-        br
-    .line -----------------------------------------------
-    .myTours ** my tours **
+    h3=`${user.name}'s account`
+    .user.box
+        .user-image
+            img(src=`/img/users/${user.photo}` alt=`photo of ${user.name}` width="100")
+        table.user-table
+            tr
+                th name
+                td= user.name
+            tr
+                th email
+                td= user.email
+            tr
+                th ratingsAverage
+                td= `${user.ratingsAverage}/5`
+            tr
+                th ratingsQuantity
+                td= `${user.ratingsQuantity}`
+        a.user-update(href="/update_user") update user
+        
+    h3 My tours
+    .myTours.box
         each tour in myTours
-            .name=`tour name: ${tour.name}`
-            .group=`tour size: ${tour.group}`
-            a.block(href=`/${user.name}/${tour.slug}/edit`) edit tour
-            button.deleteTour(data-tour-id=`${tour.id}`) delete tour
-            br
-    a(href="/new") createTour
-        br
-        br
-    .line -----------------------------------------------
-    .mybookings ** my booking **
+            table.myTours-table
+                tr
+                    th name
+                    td=tour.name
+                tr
+                    th group
+                    td=tour.group
+                tr
+                    th start date
+                    td=tour.startDate.toISOString().split("T")[0]
+            .buttons
+                a(href=`/${user.name}/${tour.slug}/edit`)
+                    button.edit-tour edit tour
+                button.deleteTour(data-tour-id=`${tour.id}`) delete tour
+        
+        a.create-tour(href="/new") create tour
+
+    h3 My bookings
+    .mybookings.box
         each booking in myBookings
             .name=`booking name: ${booking.tour.name}`
             .guide=`tour guide: ${booking.tour.guides.map(el=>el.name)}`
             if (new Date(booking.tour.startDate).getTime() > new Date(Date.now()).getTime())
-                button#cancelBooking(data-booking=`${booking.id}`) cancel Tour
+                button.deleteBooking(data-booking-id=`${booking.id}`) cancel booking
             else
                 a(href=`/${booking.tour.guides.map(el=>el.name)}/${booking.tour.slug}/review`) review Guide
-            br

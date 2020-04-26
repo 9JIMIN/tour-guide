@@ -61,7 +61,7 @@ exports.webhookCheckout = (req, res, next) => {
 };
 
 exports.deleteBooking = catchAsync(async (req, res, next) => {
-  await Booking.findByIdAndDelete(req.body.booking);
+  await Booking.findByIdAndDelete(req.params.bookingId);
 
   res.status(200).json({
     status: "success",

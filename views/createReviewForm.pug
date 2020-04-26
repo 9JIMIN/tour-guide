@@ -1,9 +1,8 @@
 extends base
 
 block content
-    .form--guideReview
-        form
-            h2 Guide review
+    h3 Review
+        form.box.form--guideReview
             .form-el
                 label(for='rating') Rating
                 input#rating(type="number" min="1" max="5")
@@ -11,4 +10,4 @@ block content
                 label(for='review') About Tour
                 input#review(type='text' placeholder='review')
             .form-el
-                button(type="submit") enter!
+                button.update-btn(type="submit") enter!

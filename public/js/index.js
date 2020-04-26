@@ -26,7 +26,7 @@ const deleteTourBtn = document.querySelectorAll(".deleteTour");
 const guideReviewForm = document.querySelector(".form--guideReview");
 //booking
 const bookingBtn = document.getElementById("booking");
-const cancelBookingBtn = document.getElementById("cancelBooking");
+const deleteBookingBtn = document.querySelectorAll(".deleteBooking");
 
 if (signupForm) {
   signupForm.addEventListener("submit", (e) => {
@@ -137,12 +137,14 @@ if (bookingBtn)
     createBooking(tourId, userName);
   });
 
-if (cancelBookingBtn)
-  cancelBookingBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    const { booking } = e.target.dataset;
-    deleteBooking(booking);
-  });
+if (deleteBookingBtn)
+  deleteBookingBtn.forEach((el) =>
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      const { bookingId } = e.target.dataset;
+      deleteBooking(bookingId);
+    })
+  );
 
 if (guideReviewForm)
   guideReviewForm.addEventListener("submit", (e) => {

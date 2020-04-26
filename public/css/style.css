@@ -1,8 +1,189 @@
 body {
-  padding: 3rem;
+  padding: 3rem 0 0 0;
   font-family: "Oxygen", sans-serif;
+  width: 1000px;
+  margin: 0 auto;
+  background-color: cadetblue;
+  box-sizing: border-box;
 }
 
+/* ################ header ################### */
+.header {
+  width: 500px;
+  margin: 0 auto;
+  background-color: cornflowerblue;
+}
+
+.header-btn {
+  padding: 10px;
+  background-color: sandybrown;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+}
+
+.home {
+  background-color: coral;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+h3,
+h4 {
+  text-align: center;
+}
+
+table {
+  width: 400px;
+  margin: 10px auto;
+  text-align: center;
+  background-color: cornsilk;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+/* ################## overview ##################### */
+.tour-overview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: blanchedalmond;
+  width: 500px;
+  height: 100px;
+  margin: 10px auto;
+  padding: 0 20px;
+}
+
+.guides-overview {
+  background-color: wheat;
+  width: 500px;
+  margin: 10px auto;
+  padding: 20px;
+}
+
+.guide-stats {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  background-color: seashell;
+}
+
+/* ################### tour ########################## */
+.tour-images {
+  display: flex;
+  justify-content: space-around;
+}
+
+.tour-booking {
+  display: block;
+  width: 100px;
+  margin: 20px auto;
+}
+
+/* ##################### account ###################### */
+.box {
+  background-color: aquamarine;
+  display: block;
+  width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.user-table {
+  height: 150px;
+}
+
+.user-image {
+  display: flex;
+  justify-content: center;
+}
+
+.user-update {
+  display: block;
+  width: 100px;
+  margin: 10px auto;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.edit-tour {
+  padding: 10px;
+  background-color: green;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.deleteTour {
+  background-color: crimson;
+  cursor: pointer;
+}
+
+.create-tour {
+  display: block;
+  width: 100px;
+  margin: 10px auto;
+}
+
+/* ################# updaet #################*/
+.form-el {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input {
+  width: 200px;
+  padding: 10px 20px;
+  margin: 10px 0;
+}
+
+.update-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: yellowgreen;
+  cursor: pointer;
+}
+
+.image-cover {
+  width: 100px;
+}
+
+.image-images {
+  width: 50px;
+  margin-right: 3px;
+}
+
+/* ################# footer #####################*/
+.footer {
+  width: 500px;
+  margin: 0 auto;
+  background-color: cornflowerblue;
+}
+
+/* ################# alert ######################*/
 .alert {
   position: fixed;
   top: 0;
@@ -25,8 +206,4 @@ body {
 }
 .alert--error {
   background-color: #eb4d4b;
-}
-
-.block {
-  display: block;
 }

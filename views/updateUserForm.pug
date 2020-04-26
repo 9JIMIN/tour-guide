@@ -1,34 +1,32 @@
 extends base
 
 block content
-    .form--updateData.container.w-25
-        form
-            h2.text-center change user data
-            .form-group
-                label(for='name') Name
-                input#name.form-control(type='name' placeholder='Your Name' value=`${user.name}`)
-            .form-group
-                label(for='email') Email address
-                input#email.form-control(type='email' placeholder='Enter email' value=`${user.email}`)
-            .form-group
-                img.block(src=`/img/users/${user.photo}` alt='user photo' width="100")
-                label(for='photo') Choose photo
-                input#photo.form-control(type='file' accept="image/*")
-            .form-group.text-center
-                button.btn.btn-primary(type="submit") update!
-            br
+    h3 change user data
+    form.box.form--updateData
+        .form-el
+            label(for='name') Name
+            input#name(type='name' placeholder='Your Name' value=`${user.name}`)
+        .form-el
+            label(for='email') Email address
+            input#email(type='email' placeholder='Enter email' value=`${user.email}`)
+        .form-el
+            img.block(src=`/img/users/${user.photo}` alt='user photo' width="100")
+            label(for='photo') Choose photo
+            input#photo(type='file' accept="image/*")
+        .form-el
+            button.update-btn(type="submit") update!
+        br
     
-    .form--updatePassword.container.w-25
-        form
-            h2.text-center change user password
-            .form-group
-                label(for='currentPassword') current password
-                input#currentPassword.form-control(type='currentPassword' placeholder='current password')
-            .form-group
-                label(for='newPassword') new Password
-                input#newPassword.form-control(type='newPassword' placeholder='new Password')
-            .form-group
-                label(for='newPasswordConfirm') new Password confirm
-                input#newPasswordConfirm.form-control(type='newPasswordConfirm' placeholder='confirm Password')
-            .form-group.text-center
-                button.btn.btn-primary(type="submit") update!
+    h3 change user password
+    form.box.form--updatePassword
+        .form-el
+            label(for='currentPassword') current password
+            input#currentPassword(type='currentPassword' placeholder='current password')
+        .form-el
+            label(for='newPassword') new Password
+            input#newPassword(type='newPassword' placeholder='new Password')
+        .form-el
+            label(for='newPasswordConfirm') new Password confirm
+            input#newPasswordConfirm(type='newPasswordConfirm' placeholder='confirm Password')
+        .form-el
+            button.update-btn(type="submit") update!

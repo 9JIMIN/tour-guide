@@ -4,18 +4,20 @@ block content
     main.main 
         h3 Every tour
         each tour in tours
-            .tours.container(href="/tour")
-                img.block(src=`/img/tours/${tour.imageCover}` alt=`cover image of ${tour.name}` width="100")
-                each image in tour.images
-                    img(src=`/img/tours/${image}` alt=`cover image of ${tour.name}` width="100")
-                .tour=`tour name: ${tour.name}`
-                each guide in tour.guides
-                    .guide= `guide: ${guide.name} / (${guide.ratingsAverage}/5)`
-                .description=`About tour: ${tour.description}`
-                a(href=`/${tour.guides[0].name}/${tour.slug}`) book now!
-                br
-                br
+            .tour-overview
+                .tour-imageCover
+                    img.block(src=`/img/tours/${tour.imageCover}` alt=`cover image of ${tour.name}` width="100")
+                .tour-table
+                    .name=`${tour.name}`
+                    each guide in tour.guides
+                        .guide= `${guide.name} (${guide.ratingsAverage}/5)`
+                    .date=`${tour.startDate.toISOString().split("T")[0]} ~ ${tour.endDate.toISOString().split("T")[0]}`
+                    a(href=`/${tour.guides[0].name}/${tour.slug}`) book now!
+
         h3 Top 10 guides
-        each guide, i in guides
-            .name=`${i+1}. ${guide.name} (${guide.ratingsAverage}/5)`
+        .guides-overview
+            each guide, i in guides
+                .guide-stats
+                    .name=`${i+1}. ${guide.name}`
+                    .ratings=`average ratings=(${guide.ratingsAverage}/5) ratings quantitiy=${guide.ratingsQuantity}`
 

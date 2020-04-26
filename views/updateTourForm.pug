@@ -1,9 +1,8 @@
 extends base
 
 block content
-    .form--updateTour
-        form
-            h2 update Tour
+        h3 update Tour
+        form.box.form--updateTour
             .form-el
                 label(for='name') Name
                 input#name(type='text' placeholder='Tour Name' value=`${tour.name}`)
@@ -23,14 +22,14 @@ block content
                 label(for='date') end date
                 input#endDate(type='date' value=`${tour.endDate.toISOString().slice(0,10)}`)
             .form-el
-                img.block(src=`/img/tours/${tour.imageCover}` alt=`cover image of ${tour.name}` width="100")
+                img.image-cover(src=`/img/tours/${tour.imageCover}` alt=`cover image of ${tour.name}`)
                 label(for='imageCover') Cover image
                 input#imageCover(type="file" accept="image/*")
             .form-el
-                .block
+                .images
                     each image, i in tour.images
-                        img(src=`/img/tours/${image}` alt=`image of ${tour.name}-${i+1}` width="100")
+                        img.image-images(src=`/img/tours/${image}` alt=`image of ${tour.name}-${i+1}`)
                 label(for='images') images
                 input#images(type='file' accept="image/*" multiple name="images")
             .form-el
-                button(type="submit") done!
+                button.update-btn(type="submit") done!

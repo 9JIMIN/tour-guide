@@ -1,17 +1,20 @@
-header.header ----------- header --------------
+header.header
     nav
-        a(href="/") Home
+        a(href="/")
+            button.header-btn.home Home
         ul
             li
                 if user
-                    button#logout Logout
+                    button.header-btn#logout Logout
                 else
-                    a(href='/login') Login
+                    a(href='/login')
+                        button.header-btn.login Login
             li
                 if user
                     a(href=`/${user.name}`)
-                        img(src=`/img/users/${user.photo}` width="50")
-                        span=`${user.name}`
+                        .header-user
+                            img(src=`/img/users/${user.photo}` width="50")
+                            span=`${user.name}`
                 else
-                    a(href='/join') Signup
-    .body ----------- body --------------
+                    a(href='/join')
+                        button.header-btn.signup Sign up

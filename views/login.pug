@@ -1,15 +1,14 @@
 extends base
 
 block content
-    .form--login.container.w-25
-        form
-            h2.text-center Login
-            .form-group
+    h3 Login
+        form.box.form--login
+            .form-el
                 label(for='email') Email address
-                input#email.form-control(type='email' placeholder='Enter email')
-            .form-group
+                input#email(type='email' placeholder='Enter email')
+            .form-el
                 label(for='password') Password
-                input#password.form-control(type='password' placeholder='Your Password')
-            .form-group.text-center
-                button.btn.btn-primary(type="submit") Login
+                input#password(type='password' placeholder='Your Password')
+            .form-el
+                button.update-btn(type="submit") Login
         a(href="/password_reset") forgotPassword

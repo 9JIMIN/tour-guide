@@ -10,6 +10,6 @@ router.get(
   bookingController.getCheckoutSession
 );
 
-router.route("/").delete(bookingController.deleteBooking);
+router.route("/:bookingId").delete(bookingController.deleteBooking);
 
 module.exports = router;

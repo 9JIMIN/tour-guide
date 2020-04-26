@@ -24,12 +24,11 @@ export const createBooking = async (tourId, userName) => {
   }
 };
 
-export const deleteBooking = async (booking) => {
+export const deleteBooking = async (bookingId) => {
   try {
     const res = await axios({
       method: "delete",
-      url: "/bookings",
-      data: { booking },
+      url: `/bookings/${bookingId}`,
     });
     if (res.data.status === "success") showAlert("success", "booking deleted!");
     window.history.back();

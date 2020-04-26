@@ -1,20 +1,38 @@
 extends base
 
 block content
-    .tour ** about tour **
-        img.block(src=`/img/tours/${tour.imageCover}` alt=`image cover` width="100")
-        .images
+    h3=tour.name
+    .tour.box
+        .tour-images
             each image, i in tour.images
-                img.imaged(src=`/img/tours/${image}` alt=`image of ${tour.name}-${i+1}` width="100")
-        .name=`name: ${tour.name}`
-        .description=`description: ${tour.description}`
-        each guide in tour.guides
-            .guide=`guides: ${guide.name}`
-        br
+                img(src=`/img/tours/${image}` alt=`image of ${tour.name}-${i+1}` width="100")
+        table.tour-table
+            tr
+                th name
+                td= tour.name
+            tr
+                th guide
+                td= tour.guides[0].name
+            tr
+                th about
+                td= tour.description
+            tr
+                th price
+                td= `${tour.price} $`
+            tr
+                th group
+                td= tour.group
+            tr
+                th date
+                td= `${tour.startDate.toISOString().split("T")[0]} ~ ${tour.endDate.toISOString().split("T")[0]}`
         
-        .booking ** booking!! **
-            if user
-                button#booking(data-tour-id=`${tour.id}` data-user-name=`${user.name}`) book!
+        .tour-booking
+            if !user
+                a(href="/login")
+                    button.update-btn login to book 
+            else if user.id===tour.guides[0].id
+                a(href=`/${user.name}/${tour.slug}/edit`)
+                    button.update-btn edit tour
             else
-                a(href="/login") login to book!
+                button#booking.update-btn(data-tour-id=`${tour.id}` data-user-name=`${user.name}`) book!
             
