@@ -28,7 +28,9 @@ exports.getAccount = async (req, res, next) => {
     select: "name startDate slug",
     populate: { path: "reviews" },
   });
-  res.status(200).render("account", { myTours, myBookings });
+
+  const { reviewsIget } = req.user;
+  res.status(200).render("account", { myTours, myBookings, reviewsIget });
 };
 
 exports.getForgotPasswordForm = (req, res, next) => {
@@ -53,7 +55,9 @@ exports.getMyTours = async (req, res, next) => {
 };
 
 exports.getTour = async (req, res, next) => {
-  const tour = await Tour.findOne({ slug: req.params.tour });
+  const tour = await Tour.findOne({ slug: req.params.tour }).populate(
+    "reviews"
+  );
   res.status(200).render("tour", { tour });
 };
 

@@ -41,6 +41,21 @@ block content
             
         a.create-tour(href="/new") create tour
 
+    h3 My Reviews
+    .myTours.box
+        each review in reviewsIget
+            .account-container
+                table.myTours-table
+                    tr
+                        th from
+                        td=review.user.name
+                    tr
+                        th rating
+                        td=`${review.guideRating}/5`
+                    tr
+                        th review
+                        td=review.guideReview
+
     h3 My bookings
     .mybookings.box
         each booking in myBookings

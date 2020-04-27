@@ -25,6 +25,16 @@ block content
             tr
                 th date
                 td= `${tour.startDate.toISOString().split("T")[0]} ~ ${tour.endDate.toISOString().split("T")[0]}`
+            
+        table.review-table
+            tr
+                th average rating
+                td= tour.ratingsAverage
+            each review in tour.reviews
+                tr
+                    th= review.user.name
+                        img(src=`/img/users/${review.user.photo}` width="50")
+                    td= `"${review.tourReview}" (${review.tourRating}/5)`
         
         .tour-booking
             if !user

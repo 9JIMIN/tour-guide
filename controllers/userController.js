@@ -94,7 +94,9 @@ exports.getCurrentUser = catchAsync(async (req, res, next) => {
         process.env.JWT_SECRET
       );
 
-      const currentUser = await User.findById(decoded.id);
+      const currentUser = await User.findById(decoded.id).populate(
+        "reviewsIget"
+      );
       if (!currentUser) return next();
 
       res.locals.user = currentUser;
