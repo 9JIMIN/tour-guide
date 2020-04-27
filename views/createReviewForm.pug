@@ -2,12 +2,23 @@ extends base
 
 block content
     h3 Review
-        form.box.form--guideReview
+        form.box.form--createReview
+            .form-el
+                img.review-image(src=`/img/tours/${tour.imageCover}` alt=`tour cover image`)
             .form-el
                 label(for='rating') Rating
-                input#rating(type="number" min="1" max="5")
+                input#tourRating(type="number" min="1" max="5")
             .form-el
                 label(for='review') About Tour
-                input#review(type='text' placeholder='review')
+                input#tourReview(type='text' placeholder='tour review')
             .form-el
-                button.update-btn(type="submit") enter!
+                img.review-image(src=`/img/users/${guide.photo}` alt=`guide image`)
+            .form-el
+                label(for='rating') Rating
+                input#guideRating(type="number" min="1" max="5")
+            .form-el
+                label(for='review') About Tour
+                input#guideReview(type='text' placeholder='guide review')
+            .form-el
+                button#reviewCreateBtn.update-btn(type="submit" data-tour-id=`${tour.id}`) enter!
+            

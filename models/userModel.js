@@ -73,6 +73,17 @@ userSchema.methods.createPasswordResetToken = function () {
 
   return resetToken;
 };
+userSchema.virtual("reviewsIwrite", {
+  ref: "Review",
+  foreignField: "user",
+  localField: "_id",
+});
+
+userSchema.virtual("reviewsIget", {
+  ref: "Review",
+  foreignField: "guide",
+  localField: "_id",
+});
 
 const User = mongoose.model("User", userSchema);
 

@@ -23,29 +23,43 @@ block content
     h3 My tours
     .myTours.box
         each tour in myTours
-            table.myTours-table
-                tr
-                    th name
-                    td=tour.name
-                tr
-                    th group
-                    td=tour.group
-                tr
-                    th start date
-                    td=tour.startDate.toISOString().split("T")[0]
-            .buttons
-                a(href=`/${user.name}/${tour.slug}/edit`)
-                    button.edit-tour edit tour
-                button.deleteTour(data-tour-id=`${tour.id}`) delete tour
-        
+            .account-container
+                table.myTours-table
+                    tr
+                        th name
+                        td=tour.name
+                    tr
+                        th group
+                        td=`${tour.bookings.length}/${tour.group}`
+                    tr
+                        th start date
+                        td=tour.startDate.toISOString().split("T")[0]
+                .buttons
+                    a(href=`/${user.name}/${tour.slug}/edit`)
+                        button.edit-btn edit tour
+                    button.deleteTour.delete-btn(data-tour-id=`${tour.id}`) delete tour
+            
         a.create-tour(href="/new") create tour
 
     h3 My bookings
     .mybookings.box
         each booking in myBookings
-            .name=`booking name: ${booking.tour.name}`
-            .guide=`tour guide: ${booking.tour.guides.map(el=>el.name)}`
-            if (new Date(booking.tour.startDate).getTime() > new Date(Date.now()).getTime())
-                button.deleteBooking(data-booking-id=`${booking.id}`) cancel booking
-            else
-                a(href=`/${booking.tour.guides.map(el=>el.name)}/${booking.tour.slug}/review`) review Guide
+            .account-container
+                table.myTours-table
+                    tr
+                        th name
+                        td=booking.tour.name
+                    tr
+                        th guides
+                        td=booking.tour.guides.map(el=>el.name)
+                .buttons
+                    if (new Date(booking.tour.startDate).getTime() > new Date(Date.now()).getTime())
+                        button.deleteBooking.delete-btn(data-booking-id=`${booking.id}`) cancel booking
+                    else
+                        - const myReview=booking.tour.reviews.find(el=>el.user.id===user.id)
+                        if myReview
+                            .tour-review=myReview.tourReview
+                            .guide-review=myReview.guideReview
+                        else
+                            a(href=`/${booking.tour.guides.map(el=>el.name)}/${booking.tour.slug}/review`)
+                                button.edit-btn review

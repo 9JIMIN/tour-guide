@@ -2,7 +2,7 @@ const Tour = require("../models/tourModel");
 const Booking = require("../models/bookingModel");
 
 exports.getOverview = async (req, res, next) => {
-  res.status(200).render("overview"); // {}안에 넣어야 전달이 됨.
+  res.status(200).render("overview");
 };
 
 exports.getSignupForm = (req, res, next) => {
@@ -14,10 +14,19 @@ exports.getLoginForm = (req, res, next) => {
 };
 
 exports.getAccount = async (req, res, next) => {
-  const myTours = await Tour.find({ guides: req.user.id });
+  const myTours = await Tour.find({ guides: req.user.id })
+    .populate({
+      path: "bookings",
+      select: "user",
+    })
+    .populate({
+      path: "reviews",
+      select: "user",
+    });
   const myBookings = await Booking.find({ user: req.user.id }).populate({
     path: "tour",
     select: "name startDate slug",
+    populate: { path: "reviews" },
   });
   res.status(200).render("account", { myTours, myBookings });
 };
@@ -48,9 +57,10 @@ exports.getTour = async (req, res, next) => {
   res.status(200).render("tour", { tour });
 };
 
-exports.getguideReviewForm = async (req, res, next) => {
-  req.app.locals.tourId = (await Tour.findOne({ slug: req.params.tour })).id;
-  res.status(200).render("createReviewForm");
+exports.getReviewForm = async (req, res, next) => {
+  const tour = await Tour.findOne({ slug: req.params.tour });
+  const guide = tour.guides[0];
+  res.status(200).render("createReviewForm", { tour, guide });
 };
 
 exports.getUpdateTourForm = async (req, res, next) => {

@@ -3,12 +3,15 @@ const Tour = require("./tourModel");
 const User = require("./userModel");
 
 const reviewSchema = new mongoose.Schema({
-  rating: { type: Number, required: [true, "rating missing"], min: 1, max: 5 },
-  review: {
-    type: String,
-    required: [true, "please type review content!"],
-  },
+  tourRating: { type: Number, min: 1, max: 5 },
+  tourReview: String,
+  guideRating: { type: Number, min: 1, max: 5 },
+  guideReview: String,
   user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+  },
+  guide: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
   },
@@ -20,8 +23,8 @@ const reviewSchema = new mongoose.Schema({
 
 //reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
 
-reviewSchema.statics.calcAverageRatings = async function (tourId) {
-  const stats = await this.aggregate([
+reviewSchema.statics.calcAverageRatings = async function (tourId, guideId) {
+  const tourStats = await this.aggregate([
     {
       $match: { tour: tourId },
     },
@@ -29,22 +32,46 @@ reviewSchema.statics.calcAverageRatings = async function (tourId) {
       $group: {
         _id: "$tour",
         nRating: { $sum: 1 },
-        avgRating: { $avg: "$rating" },
+        avgRating: { $avg: "$tourRating" },
       },
     },
   ]);
 
-  if (stats.length > 0) {
-    const guideId = (await Tour.findById(tourId)).guides[0].id;
-    await User.findByIdAndUpdate(guideId, {
-      ratingsAverage: stats[0].avgRating,
-    });
-    await User.findByIdAndUpdate(guideId, {
-      ratingsQuantity: stats[0].nRating,
+  const guideStats = await this.aggregate([
+    {
+      $match: { guide: guideId },
+    },
+    {
+      $group: {
+        _id: "$guide",
+        nRating: { $sum: 1 },
+        avgRating: { $avg: "$guideRating" },
+      },
+    },
+  ]);
+
+  if (tourStats.length > 0) {
+    await Tour.findByIdAndUpdate(tourId, {
+      ratingsAverage: tourStats[0].avgRating,
+      ratingsQuantity: tourStats[0].nRating,
     });
   } else {
-    (await Tour.findById(tourId)).guides[0].ratingsAverage = 0;
-    (await Tour.findById(tourId)).guides[0].ratingsQuantity = 0;
+    await Tour.findByIdAndUpdate(tourId, {
+      ratingsAverage: 0,
+      ratingsQuantity: 0,
+    });
+  }
+
+  if (guideStats.length > 0) {
+    await User.findByIdAndUpdate(guideId, {
+      ratingsAverage: guideStats[0].avgRating,
+      ratingsQuantity: guideStats[0].nRating,
+    });
+  } else {
+    await User.findByIdAndUpdate(guideId, {
+      ratingsAverage: 0,
+      ratingsQuantity: 0,
+    });
   }
 };
 
@@ -57,12 +84,12 @@ reviewSchema.pre(/^find/, function (next) {
 });
 
 reviewSchema.post("save", function () {
-  this.constructor.calcAverageRatings(this.tour);
+  this.constructor.calcAverageRatings(this.tour, this.guide);
 });
 
-reviewSchema.post(/^find/, async function (doc) {
-  await doc.constructor.calcAverageRatings(doc.tour);
-});
+// reviewSchema.post(/^find/, async function (doc) {
+//   await doc.constructor.calcAverageRatings(doc.tour, doc.guide);
+// });
 
 const Review = mongoose.model("Review", reviewSchema);
 

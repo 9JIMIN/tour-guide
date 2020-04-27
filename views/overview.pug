@@ -6,13 +6,14 @@ block content
         each tour in tours
             .tour-overview
                 .tour-imageCover
-                    img.block(src=`/img/tours/${tour.imageCover}` alt=`cover image of ${tour.name}` width="100")
+                    img(src=`/img/tours/${tour.imageCover}` alt=`cover image of ${tour.name}`)
                 .tour-table
                     .name=`${tour.name}`
                     each guide in tour.guides
                         .guide= `${guide.name} (${guide.ratingsAverage}/5)`
                     .date=`${tour.startDate.toISOString().split("T")[0]} ~ ${tour.endDate.toISOString().split("T")[0]}`
-                    a(href=`/${tour.guides[0].name}/${tour.slug}`) book now!
+                    a(href=`/${tour.guides[0].name}/${tour.slug}`) 
+                        button.booking-btn book now!
 
         h3 Top 10 guides
         .guides-overview

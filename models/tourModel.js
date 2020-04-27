@@ -16,6 +16,17 @@ const tourSchema = new mongoose.Schema(
     group: { type: Number, required: [true, "group is missing!"] },
     startDate: { type: Date, required: [true, "start date is missing!"] },
     endDate: { type: Date, required: [true, "end date is missing!"] },
+    ratingsAverage: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 5,
+      set: (val) => Math.round(val * 100) / 100,
+    },
+    ratingsQuantity: {
+      type: Number,
+      default: 0,
+    },
     guides: [
       {
         type: mongoose.Schema.ObjectId,
@@ -42,6 +53,18 @@ tourSchema.pre(/^find/, function (next) {
     path: "guides",
   });
   next();
+});
+
+tourSchema.virtual("bookings", {
+  ref: "Booking",
+  foreignField: "tour",
+  localField: "_id",
+});
+
+tourSchema.virtual("reviews", {
+  ref: "Review",
+  foreignField: "tour",
+  localField: "_id",
 });
 
 const Tour = mongoose.model("Tour", tourSchema);

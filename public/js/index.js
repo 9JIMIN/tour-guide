@@ -23,7 +23,7 @@ const tourForm = document.querySelector(".form--createTour");
 const updateTourForm = document.querySelector(".form--updateTour");
 const deleteTourBtn = document.querySelectorAll(".deleteTour");
 //review
-const guideReviewForm = document.querySelector(".form--guideReview");
+const createReviewForm = document.querySelector(".form--createReview");
 //booking
 const bookingBtn = document.getElementById("booking");
 const deleteBookingBtn = document.querySelectorAll(".deleteBooking");
@@ -146,12 +146,15 @@ if (deleteBookingBtn)
     })
   );
 
-if (guideReviewForm)
-  guideReviewForm.addEventListener("submit", (e) => {
+if (createReviewForm)
+  createReviewForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const rating = document.getElementById("rating").value;
-    const review = document.getElementById("review").value;
-    createReview(rating, review);
+    const tourRating = document.getElementById("tourRating").value;
+    const tourReview = document.getElementById("tourReview").value;
+    const guideRating = document.getElementById("guideRating").value;
+    const guideReview = document.getElementById("guideReview").value;
+    const { tourId } = document.getElementById("reviewCreateBtn").dataset;
+    createReview(tourRating, tourReview, guideRating, guideReview, tourId);
   });
 
 if (deleteTourBtn)

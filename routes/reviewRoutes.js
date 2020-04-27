@@ -7,7 +7,7 @@ const router = express.Router();
 router.post(
   "/",
   userController.getCurrentUser,
-  reviewController.setTourUserId,
+  reviewController.setId,
   reviewController.createReview
 );
 

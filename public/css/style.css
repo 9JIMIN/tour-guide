@@ -68,9 +68,17 @@ td {
   align-items: center;
   background-color: blanchedalmond;
   width: 500px;
-  height: 100px;
+  height: 120px;
   margin: 10px auto;
   padding: 0 20px;
+}
+
+.booking-btn {
+  width: 180px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: darkorange;
+  cursor: pointer;
 }
 
 .guides-overview {
@@ -84,7 +92,11 @@ td {
   display: flex;
   justify-content: space-between;
   margin: 10px;
-  background-color: seashell;
+  background-color: darkkhaki;
+}
+
+.tour-imageCover img {
+  width: 120px;
 }
 
 /* ################### tour ########################## */
@@ -108,6 +120,12 @@ td {
   padding: 20px;
 }
 
+.account-container {
+  background-color: burlywood;
+  margin-bottom: 10px;
+  padding: 10px 0;
+}
+
 .user-table {
   height: 150px;
 }
@@ -128,16 +146,17 @@ td {
   justify-content: center;
 }
 
-.edit-tour {
+.edit-btn {
   padding: 10px;
   background-color: green;
   cursor: pointer;
   margin-right: 20px;
 }
 
-.deleteTour {
+.delete-btn {
   background-color: crimson;
   cursor: pointer;
+  padding: 10px;
 }
 
 .create-tour {
@@ -160,7 +179,6 @@ input {
 }
 
 .update-btn {
-  display: block;
   margin: 0 auto;
   padding: 10px;
   background-color: yellowgreen;
@@ -174,6 +192,12 @@ input {
 .image-images {
   width: 50px;
   margin-right: 3px;
+}
+
+/* ################# review ##################### */
+.review-image {
+  width: 120px;
+  margin: 10px auto;
 }
 
 /* ################# footer #####################*/

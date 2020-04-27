@@ -39,7 +39,7 @@ router.get(
 router.get(
   "/:user/:tour/review",
   userController.getCurrentUser,
-  viewController.getguideReviewForm
+  viewController.getReviewForm
 );
 router.get(
   "/:user/:tour/edit",

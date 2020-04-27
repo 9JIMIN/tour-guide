@@ -5,12 +5,18 @@
 import axios from "axios";
 import { showAlert } from "./alert";
 
-export const createReview = async (rating, review) => {
+export const createReview = async (
+  tourRating,
+  tourReview,
+  guideRating,
+  guideReview,
+  tourId
+) => {
   try {
     const res = await axios({
       method: "post",
       url: "/reviews",
-      data: { rating, review },
+      data: { tourRating, tourReview, guideRating, guideReview, tourId },
     });
     if (res.data.status === "success") showAlert("success", "review success!");
     window.history.back();
