@@ -61,8 +61,15 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllTours = catchAsync(async (req, res, next) => {
-  const features = new APIFeatures(Tour.find(), req.query);
-  const doc = await features.query;
+  const features = new APIFeatures(Tour.find(), req.query).sort().search();
+  let doc = await features.query;
+
+  if (req.query.by === "guide-name") {
+    doc = doc.filter((el) =>
+      el.guides[0].name.match(new RegExp(req.query.search, "g"))
+    );
+  }
+  if (doc.length === 0) res.locals.noTour = true;
   res.locals.tours = doc;
   next();
 });

@@ -1,20 +1,22 @@
 header.header
-    nav
+    .header-logo
         a(href="/")
-            button.header-btn.home Home
-        ul
-            li
-                if user
-                    button.header-btn#logout Logout
-                else
-                    a(href='/login')
-                        button.header-btn.login Login
-            li
-                if user
-                    a(href=`/${user.name}`)
-                        .header-user
-                            img(src=`/img/users/${user.photo}` width="50")
-                            span=`${user.name}`
-                else
-                    a(href='/join')
-                        button.header-btn.signup Sign up
+            img(src=`/img/logo.png`)
+    .header-content
+        .content-el
+        .content-el
+    .header-account
+        if user
+            .header-account.header-account-yes
+                button#logout.btn-header.btn-logout Logout
+                a(href=`/${user.name}`)
+                    .user-header
+                        .user-img
+                            img(src=`/img/users/${user.photo}`)
+                        .user-name=`${user.name}`
+        else
+            .header-account.header-account-no
+                a(href='/login')
+                    button.btn-header.btn-login Login
+                a(href='/join')
+                    button.btn-header.btn-signup Sign up

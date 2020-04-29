@@ -1,104 +1,211 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  text-decoration: none;
+}
+
+html {
+  font-size: 85%;
+}
+
 body {
-  padding: 3rem 0 0 0;
-  font-family: "Oxygen", sans-serif;
-  width: 1000px;
-  margin: 0 auto;
-  background-color: cadetblue;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+  color: black;
+  background-color: lemonchiffon;
+  padding: 1rem;
   box-sizing: border-box;
 }
 
 /* ################ header ################### */
 .header {
-  width: 500px;
+  height: 10vh;
+  width: 90vw;
   margin: 0 auto;
-  background-color: cornflowerblue;
+  padding: 1rem;
+  background-color: lightgreen;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.header-btn {
-  padding: 10px;
-  background-color: sandybrown;
-  margin: 0 10px;
+.header-logo {
+  background-color: white;
+  height: 8vh;
+  overflow: hidden;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1rem;
+  margin: 3rem 1rem 1rem 10rem;
+}
+.content-el {
+  margin-left: 3rem;
+  font-size: 1.2rem;
+}
+
+.header-account {
+  height: 8vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-header.btn-logout {
+  background-color: brown;
+}
+.btn-header.btn-login {
+  background-color: yellow;
+}
+.btn-header.btn-signup {
+  background-color: yellow;
+  margin-left: 1rem;
+}
+.user-header {
+  background-color: darkcyan;
+  margin-left: 1rem;
+  height: 8vh;
+  width: 10rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+.user-img img {
+  height: 8vh;
+}
+.user-name {
+  margin-right: 0.7rem;
+}
+
+.btn-header {
+  height: 8vh;
+  width: 8rem;
   cursor: pointer;
-}
-
-.header-user {
-  display: flex;
-  align-items: center;
-}
-
-.home {
-  background-color: coral;
-}
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-ul {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  list-style: none;
-}
-
-h3,
-h4 {
-  text-align: center;
-}
-
-table {
-  width: 400px;
-  margin: 10px auto;
-  text-align: center;
-  background-color: cornsilk;
-}
-
-table,
-th,
-td {
-  border: 1px solid black;
+  border: none;
 }
 
 /* ################## overview ##################### */
-.tour-overview {
+.main {
+  width: 90vw;
+  background-color: tan;
+  margin: 1rem auto;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  background-color: blanchedalmond;
-  width: 500px;
-  height: 120px;
-  margin: 10px auto;
-  padding: 0 20px;
 }
 
-.booking-btn {
-  width: 180px;
-  margin: 0 auto;
-  padding: 10px;
-  background-color: darkorange;
+.main-tours {
+  width: 70vw;
+  background-color: thistle;
+  padding: 1rem;
+}
+
+.tours-header {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.tours-function {
+  display: flex;
+  background-color: tomato;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+.tours-function > .function-search {
+  background-color: violet;
+  width: 50vw;
+  padding: 0 1rem;
+}
+.tours-function > .function-search > form {
+  display: flex;
+}
+.function-search form input[type="text"] {
+  width: 15vw;
+}
+.function-search form select {
+  width: 10vw;
+  height: 3rem;
+  margin: auto 1rem;
+}
+.function-search form input[type="submit"] {
+  width: 10vw;
   cursor: pointer;
 }
-
-.guides-overview {
-  background-color: wheat;
-  width: 500px;
-  margin: 10px auto;
-  padding: 20px;
-}
-
-.guide-stats {
+.tours-function > .function-sort {
+  background-color: yellowgreen;
+  width: 50vw;
   display: flex;
-  justify-content: space-between;
-  margin: 10px;
-  background-color: darkkhaki;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 0.5rem;
+}
+.tours-function > .function-sort .list-items {
+  background-color: sandybrown;
+  padding: 1rem;
+}
+.tours-content {
+  background-color: seagreen;
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
-.tour-imageCover img {
-  width: 120px;
+.tours-content > .tour-card {
+  background-color: sienna;
+  width: 17rem;
+  margin: 1rem;
 }
 
+.tour-card > .tour-image img {
+  width: 16rem;
+  display: block;
+  margin: 0.5rem auto;
+}
+
+.tour-card > .tour-status {
+  background-color: slateblue;
+  width: 16rem;
+  margin: 0.5rem auto;
+  text-align: center;
+}
+
+.status-items.name {
+  font-size: 1.2rem;
+}
+
+.tour-card > a .tour-look {
+  background-color: floralwhite;
+  width: 16rem;
+  height: 3rem;
+  display: block;
+  margin: 0.5rem auto;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.main-chart {
+  width: 30vw;
+  padding: 1rem;
+}
+.chart-header {
+  text-align: center;
+  font-size: 2rem;
+}
+.chart-content .guide-stats {
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.table-chart {
+  width: 90%;
+}
 /* ################### tour ########################## */
 .tour-images {
   display: flex;
@@ -112,36 +219,139 @@ td {
 }
 
 /* ##################### account ###################### */
-.box {
-  background-color: aquamarine;
-  display: block;
-  width: 500px;
-  margin: 0 auto;
-  padding: 20px;
+
+table,
+th,
+td {
+  border: 1px solid black;
 }
 
-.account-container {
-  background-color: burlywood;
-  margin-bottom: 10px;
-  padding: 10px 0;
-}
-
-.user-table {
-  height: 150px;
-}
-
-.user-image {
+/* ############ user profile ############## */
+.account {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.user-container {
+  background-color: lightblue;
+  width: 25rem;
+  margin: 2rem 0;
+  margin-left: 5%;
+  padding: 1rem 0;
+}
+.user-container > .user-image {
+  width: 20rem;
+  margin: 0 auto;
+}
+.user-container > .user-image img {
+  width: 20rem;
 }
 
-.user-update {
+.user-container > .user-table {
+  background-color: rosybrown;
+  width: 20rem;
+  margin: 0 auto;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.user-container > a .user-update {
+  background-color: silver;
+  font-size: 1.2rem;
+  text-align: center;
+  width: 10rem;
+  margin: 0 auto;
+}
+/* ############ my tours ############## */
+.myTours-container {
+  background-color: thistle;
+  width: 35rem;
+  margin: 2rem 0;
+}
+.myTour {
+  background-color: brown;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  height: 8rem;
+}
+.myTour table {
+  width: 80%;
+  height: 7rem;
+}
+.myTour .buttons {
+  width: 20%;
+  height: 100%;
+}
+
+.buttons .edit-btn {
+  background-color: cadetblue;
+  height: 100%;
+  width: 90%;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.create-tour {
   display: block;
-  width: 100px;
-  margin: 10px auto;
+  background-color: coral;
+  padding: 1rem;
+  width: 20rem;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.2rem;
+}
+/* ############ my bookings ############ */
+.myBookings-container {
+  background-color: violet;
+  width: 35rem;
+  margin: 2rem 0;
+  margin-right: 5%;
+}
+.myBooking {
+  background-color: brown;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  height: 8rem;
+}
+.myBooking table {
+  width: 80%;
+  height: 7rem;
+}
+.myBooking .buttons {
+  width: 20%;
+  height: 100%;
 }
 
-.buttons {
+.buttons .edit-btn {
+  background-color: cadetblue;
+  height: 100%;
+  width: 90%;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+/* #######my reviews ########### */
+.myReviews-container {
+  background-color: lightblue;
+  width: 25rem;
+  margin: 2rem 0;
+  margin-left: 5%;
+  padding: 1rem 0;
+}
+.myReview-table {
+  width: 20rem;
+  margin: 0 auto;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  background-color: darkgoldenrod;
+}
+/* .buttons {
   display: flex;
   justify-content: center;
 }
@@ -163,7 +373,7 @@ td {
   display: block;
   width: 100px;
   margin: 10px auto;
-}
+} */
 
 /* ################# updaet #################*/
 .form-el {
@@ -202,7 +412,8 @@ input {
 
 /* ################# footer #####################*/
 .footer {
-  width: 500px;
+  height: 10vh;
+  width: 90vw;
   margin: 0 auto;
   background-color: cornflowerblue;
 }

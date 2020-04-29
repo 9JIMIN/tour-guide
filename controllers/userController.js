@@ -94,9 +94,16 @@ exports.getCurrentUser = catchAsync(async (req, res, next) => {
         process.env.JWT_SECRET
       );
 
-      const currentUser = await User.findById(decoded.id).populate(
-        "reviewsIget"
-      );
+      const currentUser = await User.findById(decoded.id).populate({
+        path: "reviewsIget",
+        populate: { path: "tour" },
+      });
+      if (req.params.user && currentUser.name !== req.params.user) {
+        req.paramsUser = await User.findOne({ name: req.params.user }).populate(
+          "reviewsIget"
+        );
+        res.locals.paramsUser = req.paramsUser;
+      }
       if (!currentUser) return next();
 
       res.locals.user = currentUser;

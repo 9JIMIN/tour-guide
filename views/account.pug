@@ -1,80 +1,98 @@
 extends base
 
 block content
-    h3=`${user.name}'s account`
-    .user.box
-        .user-image
-            img(src=`/img/users/${user.photo}` alt=`photo of ${user.name}` width="100")
-        table.user-table
-            tr
-                th name
-                td= user.name
-            tr
-                th email
-                td= user.email
-            tr
-                th ratingsAverage
-                td= `${user.ratingsAverage}/5`
-            tr
-                th ratingsQuantity
-                td= `${user.ratingsQuantity}`
-        a.user-update(href="/update_user") update user
-        
-    h3 My tours
-    .myTours.box
-        each tour in myTours
-            .account-container
-                table.myTours-table
-                    tr
-                        th name
-                        td=tour.name
-                    tr
-                        th group
-                        td=`${tour.bookings.length}/${tour.group}`
-                    tr
-                        th start date
-                        td=tour.startDate.toISOString().split("T")[0]
-                .buttons
-                    a(href=`/${user.name}/${tour.slug}/edit`)
-                        button.edit-btn edit tour
-                    button.deleteTour.delete-btn(data-tour-id=`${tour.id}`) delete tour
-            
-        a.create-tour(href="/new") create tour
+    .account
+        - if (paramsUser) user=paramsUser
+        // USER PROFILE
+        .user-container
+            .user-image
+                img(src=`/img/users/${user.photo}` alt=`photo of ${user.name}`)
+            table.user-table
+                tr
+                    th name
+                    td= user.name
+                tr
+                    th email
+                    td= user.email
+                tr
+                    th ratingsAverage
+                    td= `${user.ratingsAverage}/5`
+                tr
+                    th ratingsQuantity
+                    td= `${user.ratingsQuantity}`
+            if !paramsUser
+                a(href="/update_user") 
+                    .user-update edit profile
 
-    h3 My Reviews
-    .myTours.box
-        each review in reviewsIget
-            .account-container
-                table.myTours-table
-                    tr
-                        th from
-                        td=review.user.name
-                    tr
-                        th rating
-                        td=`${review.guideRating}/5`
-                    tr
-                        th review
-                        td=review.guideReview
-
-    h3 My bookings
-    .mybookings.box
-        each booking in myBookings
-            .account-container
-                table.myTours-table
-                    tr
-                        th name
-                        td=booking.tour.name
-                    tr
-                        th guides
-                        td=booking.tour.guides.map(el=>el.name)
-                .buttons
-                    if (new Date(booking.tour.startDate).getTime() > new Date(Date.now()).getTime())
-                        button.deleteBooking.delete-btn(data-booking-id=`${booking.id}`) cancel booking
-                    else
-                        - const myReview=booking.tour.reviews.find(el=>el.user.id===user.id)
-                        if myReview
-                            .tour-review=myReview.tourReview
-                            .guide-review=myReview.guideReview
+        // TOUR I MAKE
+        .myTours-container
+            h3 tours
+            each tour in myTours
+                .myTour
+                    table.myTour-table
+                        tr
+                            th name
+                            td=tour.name
+                        tr
+                            th group
+                            td=`${tour.bookings.length}/${tour.group}`
+                        tr
+                            th start date
+                            td=tour.startDate.toISOString().split("T")[0]
+                    .buttons
+                        if paramsUser
+                            a(href=`/${user.name}/${tour.slug}`)
+                                button.edit-btn see detail
                         else
-                            a(href=`/${booking.tour.guides.map(el=>el.name)}/${booking.tour.slug}/review`)
-                                button.edit-btn review
+                            a(href=`/${user.name}/${tour.slug}/edit`)
+                                button.edit-btn edit tour
+            if !paramsUser
+                a.create-tour(href="/new") create tour
+
+
+        // Tours i buy
+        .myBookings-container
+            h3 My bookings
+            if myBookings.length>0
+                each booking in myBookings
+                    .myBooking
+                        table.myBooking-table
+                            tr
+                                th name
+                                td=booking.tour.name
+                            tr
+                                th start date
+                                td=booking.tour.startDate.toISOString().split("T")[0]
+                        if (!paramsUser)
+                            .buttons
+                                if (new Date(booking.tour.startDate).getTime() > new Date(Date.now()).getTime())
+                                    button.deleteBooking.delete-btn(data-booking-id=`${booking.id}`) cancel booking
+                                else
+                                    - const myReview=booking.tour.reviews.find(el=>el.user.id===user.id)
+                                    if myReview
+                                        .tour-review=myReview.tourReview
+                                        .guide-review=myReview.guideReview
+                                    else
+                                        a(href=`/${booking.tour.guides.map(el=>el.name)}/${booking.tour.slug}/review`)
+                                            button.edit-btn review
+            else 
+                .empty empty
+
+        // Reviews i get
+        .myReviews-container
+            h3 my reviews
+            if reviewsIget.length>0
+                each review in reviewsIget
+                    .myReview
+                        table.myReview-table
+                            tr
+                                th tour
+                                td=review.tour.name
+                            tr
+                                th name
+                                td=review.user.name
+                            tr
+                                th review
+                                td=`${review.guideReview} (${review.guideRating}/5)`
+            else    
+                .empty empty 

@@ -42,7 +42,7 @@ export const deleteTour = async (tourId) => {
       url: `/tours/${tourId}`,
     });
     if (res.status === 204) showAlert("success", "tour deleted successfully!");
-    location.reload();
+    window.history.back();
   } catch (err) {
     showAlert("error", err.response.data.message);
   }

@@ -1,24 +1,48 @@
 extends base
 
 block content
-    main.main 
-        h3 Every tour
-        each tour in tours
-            .tour-overview
-                .tour-imageCover
-                    img(src=`/img/tours/${tour.imageCover}` alt=`cover image of ${tour.name}`)
-                .tour-table
-                    .name=`${tour.name}`
-                    each guide in tour.guides
-                        .guide= `${guide.name} (${guide.ratingsAverage}/5)`
-                    .date=`${tour.startDate.toISOString().split("T")[0]} ~ ${tour.endDate.toISOString().split("T")[0]}`
-                    a(href=`/${tour.guides[0].name}/${tour.slug}`) 
-                        button.booking-btn book now!
-
-        h3 Top 10 guides
-        .guides-overview
-            each guide, i in guides
-                .guide-stats
-                    .name=`${i+1}. ${guide.name}`
-                    .ratings=`average ratings=(${guide.ratingsAverage}/5) ratings quantitiy=${guide.ratingsQuantity}`
-
+    main.main
+        .main-tours
+            .tours-header Every tours
+            .tours-function
+                .function-search
+                    form(action="/").form-search
+                        input#search(type="text" name="search")
+                        select#select(name="by")
+                            option(value="tour-name") tour name
+                            option(value="guide-name") guide name
+                        input(type="submit" value="search")
+                .function-sort
+                    a(href="/?sort=-ratingsAverage")
+                        .list-items 평점순
+                    a(href="/?sort=price")
+                        .list-items 가격순
+                    a(href="#")
+                        .list-items 거리순
+                    a(href="/?sort=-createdAt")
+                        .list-items 최신순
+            .tours-content
+                if noTour
+                    .noTour no tours exist..!
+                each tour in tours
+                    .tour-card
+                        .tour-image
+                            img(src=`/img/tours/${tour.imageCover}` alt=`cover image of ${tour.name}`)                        
+                        .tour-status
+                            .status-items.name=`${tour.name}`
+                            .status-items=`guide: ${tour.guides[0].name} (${tour.guides[0].ratingsAverage}/5)`
+                            .status-items=`$${tour.price}`
+                            .status-items=`${tour.startDate.toISOString().split("T")[0]} ~ ${tour.endDate.toISOString().split("T")[0]}`
+                        a(href=`/${tour.guides[0].name}/${tour.slug}`) 
+                            .tour-look see detail
+                        
+        .main-chart
+            .chart-header Top 10 guides
+            .chart-content
+                table.table-chart
+                    each guide, i in guides
+                        tr
+                            th=i+1
+                            th 
+                                a(href=`/${guide.name}`)=guide.name
+                            td=`${guide.ratingsQuantity} reviews (${guide.ratingsAverage}/5)`
