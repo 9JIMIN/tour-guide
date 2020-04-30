@@ -206,6 +206,25 @@ body {
 .table-chart {
   width: 90%;
 }
+
+.paginate {
+  background-color: darkred;
+  padding: 0.2rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.paginate a {
+  width: 20%;
+}
+
+.next {
+  width: 100%;
+  margin: 0 auto;
+  background-color: darksalmon;
+  text-align: center;
+}
+
 /* ################### tour ########################## */
 .tour-images {
   display: flex;

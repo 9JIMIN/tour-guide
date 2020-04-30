@@ -35,7 +35,13 @@ block content
                             .status-items=`${tour.startDate.toISOString().split("T")[0]} ~ ${tour.endDate.toISOString().split("T")[0]}`
                         a(href=`/${tour.guides[0].name}/${tour.slug}`) 
                             .tour-look see detail
-                        
+            .paginate
+                if (page > 1)
+                    a(href=`/?page=${page*1 -1}`)
+                        .next <<
+                if (page < Math.round(docLength/8)+1)
+                    a(href=`/?page=${page*1 +1}`)
+                        .next >>
         .main-chart
             .chart-header Top 10 guides
             .chart-content

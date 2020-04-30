@@ -22,6 +22,7 @@ const resetPassword = document.querySelector(".form--resetPassword");
 const tourForm = document.querySelector(".form--createTour");
 const updateTourForm = document.querySelector(".form--updateTour");
 const deleteTourBtn = document.querySelectorAll(".deleteTour");
+const lastTourPage = document.querySelectorAll(".page");
 //review
 const createReviewForm = document.querySelector(".form--createReview");
 //booking
@@ -165,3 +166,15 @@ if (deleteTourBtn)
       deleteTour(tourId);
     })
   );
+/* 
+if (lastTourPage)
+  lastTourPage.addEventListener("click", (e) => {
+    e.preventDefault();
+    const currentPage = e.target.value;
+    console.log(currentPage);
+    if (currentPage % 3 === 0) {
+      res.locals.nextPage = currentPage;
+    }else{
+      res.locals
+    }
+  }); */

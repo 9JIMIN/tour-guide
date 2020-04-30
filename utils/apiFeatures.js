@@ -24,7 +24,16 @@ class APIFeatures {
     return this;
   }
 
-  paginate() {}
+  paginate() {
+    if (this.queryString.page) {
+      const { page } = this.queryString;
+      this.query.limit(8).skip((page - 1) * 8);
+      return this;
+    }
+    this.query.limit(8);
+
+    return this;
+  }
 }
 
 module.exports = APIFeatures;
