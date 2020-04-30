@@ -43,7 +43,7 @@ block content
                     a(href=`/?page=${page*1 +1}`)
                         .next >>
         .main-chart
-            .chart-header Top 10 guides
+            .chart-header Top 5 guides
             .chart-content
                 table.table-chart
                     each guide, i in guides
@@ -51,4 +51,5 @@ block content
                             th=i+1
                             th 
                                 a(href=`/${guide.name}`)=guide.name
+                                    img(src=`/img/users/${guide.photo}`)
                             td=`${guide.ratingsQuantity} reviews (${guide.ratingsAverage}/5)`

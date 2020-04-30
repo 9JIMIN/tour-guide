@@ -98,7 +98,10 @@ export const reset = async (password, passwordConfirm) => {
       url: "/users/resetPassword",
       data: { password, passwordConfirm },
     });
-    if (res.data.status === "success") showAlert("success", "password changed");
+    if (res.data.status === "success") {
+      showAlert("success", "password changed");
+      location.assign("/");
+    }
   } catch (err) {
     showAlert("error", err.response.data.message);
   }

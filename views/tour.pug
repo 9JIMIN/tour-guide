@@ -1,41 +1,56 @@
 extends base
 
 block content
-    h3=tour.name
-    .tour.box
+    .tour-box
+        .tour-header=tour.name
         .tour-images
             each image, i in tour.images
-                img(src=`/img/tours/${image}` alt=`image of ${tour.name}-${i+1}` width="100")
-        table.tour-table
-            tr
-                th name
-                td= tour.name
-            tr
-                th guide
-                td= tour.guides[0].name
-            tr
-                th about
-                td= tour.description
-            tr
-                th price
-                td= `${tour.price} $`
-            tr
-                th group
-                td= tour.group
-            tr
-                th date
-                td= `${tour.startDate.toISOString().split("T")[0]} ~ ${tour.endDate.toISOString().split("T")[0]}`
-            
-        table.review-table
-            tr
-                th average rating
-                td= tour.ratingsAverage
-            each review in tour.reviews
+                img(src=`/img/tours/${image}` alt=`image of ${tour.name}-${i+1}`)
+        .tables
+            table.tour-table
                 tr
-                    th= review.user.name
-                        img(src=`/img/users/${review.user.photo}` width="50")
-                    td= `"${review.tourReview}" (${review.tourRating}/5)`
+                    th name
+                    td= tour.name
+                tr
+                    th about
+                    td= tour.description
+                tr
+                    th price
+                    td= `${tour.price} $`
+                tr
+                    th group
+                    td= tour.group
+                tr
+                    th date
+                    td= `${tour.startDate.toISOString().split("T")[0]} ~ ${tour.endDate.toISOString().split("T")[0]}`
+            if (tour.ratingsAverage===0)
+                table.review-table
+                    tr
+                        th no reviews
+            else
+                table.review-table
+                    tr
+                        th tour rating
+                        td= `${tour.ratingsAverage}/5`
+                    each review in tour.reviews
+                        tr
+                            th= review.user.name
+                                a(href=`/${review.user.name}`)
+                                    img(src=`/img/users/${review.user.photo}`)
+                            td= `"${review.tourReview}" (${review.tourRating}/5)`
         
+            table.guide-table
+                tr
+                    th guide
+                tr
+                    th
+                        a(href=`/${tour.guides[0].name}`)
+                            img(src=`/img/users/${tour.guides[0].photo}`)
+                tr  
+                    th=tour.guides[0].name
+                tr
+                    th=`${tour.guides[0].ratingsQuantity} reviews ${tour.guides[0].ratingsAverage}/5 rating`
+
         .tour-booking
             if !user
                 a(href="/login")

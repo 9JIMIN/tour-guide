@@ -87,8 +87,8 @@ exports.logout = (req, res, next) => {
 };
 
 exports.getCurrentUser = catchAsync(async (req, res, next) => {
-  if (req.cookies.jwt) {
-    try {
+  try {
+    if (req.cookies.jwt) {
       const decoded = await promisify(jwt.verify)(
         req.cookies.jwt,
         process.env.JWT_SECRET
@@ -98,23 +98,25 @@ exports.getCurrentUser = catchAsync(async (req, res, next) => {
         path: "reviewsIget",
         populate: { path: "tour" },
       });
+
       if (req.params.user && currentUser.name !== req.params.user) {
-        req.paramsUser = await User.findOne({ name: req.params.user }).populate(
-          "reviewsIget"
-        );
+        req.paramsUser = await User.findOne({
+          name: req.params.user,
+        }).populate({ path: "reviewsIget", populate: { path: "tour" } });
         res.locals.paramsUser = req.paramsUser;
       }
-      if (!currentUser) return next();
-
       res.locals.user = currentUser;
       req.user = currentUser;
-
-      return next();
-    } catch (err) {
-      return next();
+    } else if (req.params.user) {
+      req.paramsUser = await User.findOne({
+        name: req.params.user,
+      }).populate({ path: "reviewsIget", populate: { path: "tour" } });
+      res.locals.paramsUser = req.paramsUser;
     }
+    return next();
+  } catch (err) {
+    return next();
   }
-  next();
 });
 
 exports.updateUser = catchAsync(async (req, res, next) => {
@@ -210,7 +212,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 exports.getGuideStats = catchAsync(async (req, res, next) => {
   const guides = await User.find({ role: "guide" })
     .sort("-ratingsAverage")
-    .limit(10);
+    .limit(5);
   res.locals.guides = guides;
 
   next();

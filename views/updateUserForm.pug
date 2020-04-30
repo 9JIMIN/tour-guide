@@ -1,8 +1,8 @@
 extends base
 
 block content
-    h3 change user data
-    form.box.form--updateData
+    form.form-wide.form--updateData
+        h3 change user data
         .form-el
             label(for='name') Name
             input#name(type='name' placeholder='Your Name' value=`${user.name}`)
@@ -17,8 +17,8 @@ block content
             button.update-btn(type="submit") update!
         br
     
-    h3 change user password
-    form.box.form--updatePassword
+    form.form-wide.form--updatePassword
+        h3 change user password
         .form-el
             label(for='currentPassword') current password
             input#currentPassword(type='currentPassword' placeholder='current password')

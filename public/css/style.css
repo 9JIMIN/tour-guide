@@ -38,6 +38,9 @@ body {
   height: 8vh;
   overflow: hidden;
 }
+.header-logo:hover {
+  background-color: whitesmoke;
+}
 
 .header-content {
   display: flex;
@@ -59,13 +62,26 @@ body {
 .btn-header.btn-logout {
   background-color: brown;
 }
+.btn-header.btn-logout:hover {
+  background-color: rgb(99, 25, 25);
+}
+
 .btn-header.btn-login {
   background-color: yellow;
 }
+.btn-header.btn-login:hover {
+  background-color: rgb(173, 173, 9);
+}
+
 .btn-header.btn-signup {
   background-color: yellow;
   margin-left: 1rem;
 }
+.btn-header.btn-signup:hover {
+  background-color: rgb(173, 173, 9);
+  margin-left: 1rem;
+}
+
 .user-header {
   background-color: darkcyan;
   margin-left: 1rem;
@@ -75,6 +91,9 @@ body {
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
+}
+.user-header:hover {
+  background-color: rgb(1, 109, 109);
 }
 
 .user-img img {
@@ -98,6 +117,7 @@ body {
   margin: 1rem auto;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .main-tours {
@@ -109,6 +129,7 @@ body {
 .tours-header {
   text-align: center;
   font-size: 2rem;
+  margin-bottom: 2rem;
 }
 
 .tours-function {
@@ -137,6 +158,9 @@ body {
   width: 10vw;
   cursor: pointer;
 }
+.function-search form input[type="submit"]:hover {
+  background-color: whitesmoke;
+}
 .tours-function > .function-sort {
   background-color: yellowgreen;
   width: 50vw;
@@ -148,6 +172,9 @@ body {
 .tours-function > .function-sort .list-items {
   background-color: sandybrown;
   padding: 1rem;
+}
+.tours-function > .function-sort .list-items:hover {
+  background-color: rgb(175, 117, 66);
 }
 .tours-content {
   background-color: seagreen;
@@ -189,14 +216,18 @@ body {
   text-align: center;
   font-size: 1.5rem;
 }
+.tour-card > a .tour-look:hover {
+  background-color: rgb(226, 200, 147);
+}
 
 .main-chart {
-  width: 30vw;
+  width: 20vw;
   padding: 1rem;
 }
 .chart-header {
   text-align: center;
   font-size: 2rem;
+  margin-bottom: 2rem;
 }
 .chart-content .guide-stats {
   margin-bottom: 1rem;
@@ -205,6 +236,14 @@ body {
 
 .table-chart {
   width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
+.table-chart img {
+  width: 5vw;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1rem;
 }
 
 .paginate {
@@ -220,9 +259,13 @@ body {
 
 .next {
   width: 100%;
-  margin: 0 auto;
+  margin: 1rem auto;
   background-color: darksalmon;
   text-align: center;
+  padding: 0.5rem 0;
+}
+.next:hover {
+  background-color: tomato;
 }
 
 /* ################### tour ########################## */
@@ -284,6 +327,7 @@ td {
 }
 /* ############ my tours ############## */
 .myTours-container {
+  text-align: center;
   background-color: thistle;
   width: 35rem;
   margin: 2rem 0;
@@ -324,6 +368,7 @@ td {
 }
 /* ############ my bookings ############ */
 .myBookings-container {
+  text-align: center;
   background-color: violet;
   width: 35rem;
   margin: 2rem 0;
@@ -356,11 +401,8 @@ td {
 
 /* #######my reviews ########### */
 .myReviews-container {
-  background-color: lightblue;
-  width: 25rem;
-  margin: 2rem 0;
-  margin-left: 5%;
-  padding: 1rem 0;
+  margin-top: 2rem;
+  text-align: center;
 }
 .myReview-table {
   width: 20rem;
@@ -370,29 +412,6 @@ td {
   text-align: center;
   background-color: darkgoldenrod;
 }
-/* .buttons {
-  display: flex;
-  justify-content: center;
-}
-
-.edit-btn {
-  padding: 10px;
-  background-color: green;
-  cursor: pointer;
-  margin-right: 20px;
-}
-
-.delete-btn {
-  background-color: crimson;
-  cursor: pointer;
-  padding: 10px;
-}
-
-.create-tour {
-  display: block;
-  width: 100px;
-  margin: 10px auto;
-} */
 
 /* ################# updaet #################*/
 .form-el {
@@ -429,12 +448,115 @@ input {
   margin: 10px auto;
 }
 
+/* ################## form ###########################*/
+
+.form-narrow {
+  background-color: darkseagreen;
+  width: 25vw;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.form-wide {
+  background-color: darkseagreen;
+  width: 30vw;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.form-el .update-btn {
+  margin: 1rem auto;
+}
+/* ################# tour #####################*/
+.tour-box {
+  background-color: darkviolet;
+  width: 90vw;
+  margin: 1rem auto;
+  text-align: center;
+  padding: 2rem;
+}
+.tour-box .tour-header {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+.tour-box .tour-images img {
+  display: flex;
+  justify-content: space-around;
+  width: 25vw;
+}
+
+.tables {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.tables .tour-table {
+  width: 30vw;
+  height: 30vh;
+  margin: 2rem;
+  background-color: firebrick;
+}
+
+.tables .review-table {
+  width: 30vw;
+  margin: 2rem;
+  background-color: fuchsia;
+}
+
+.review-table th {
+  width: 8vw;
+}
+.review-table img {
+  display: block;
+  width: 5vw;
+  margin: 0.5rem auto;
+}
+
+.tables .guide-table {
+  width: 13vw;
+  height: 30vh;
+  margin: 2rem;
+  background-color: ghostwhite;
+}
+
+.tables .guide-table img {
+  width: 10vw;
+  margin: 1rem auto;
+}
+
+.tour-booking {
+  width: 30vw;
+}
+.tour-booking button {
+  width: 15vw;
+  height: 5vw;
+  margin: 2rem auto;
+  background-color: gold;
+  font-size: 2rem;
+}
+
+/* ################## error ##################### */
+.error {
+  width: 90vw;
+  margin: 2rem auto;
+  padding: 3rem;
+  text-align: center;
+  background-color: indianred;
+}
 /* ################# footer #####################*/
 .footer {
   height: 10vh;
   width: 90vw;
   margin: 0 auto;
   background-color: cornflowerblue;
+}
+
+.footer-text {
+  text-align: center;
+  margin-bottom: 0.5rem;
 }
 
 /* ################# alert ######################*/

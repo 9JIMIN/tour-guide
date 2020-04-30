@@ -23,6 +23,25 @@ block content
             if !paramsUser
                 a(href="/update_user") 
                     .user-update edit profile
+                    
+            // Reviews i get
+            .myReviews-container
+                h3 reviews
+                if reviewsIget.length>0
+                    each review in reviewsIget
+                        .myReview
+                            table.myReview-table
+                                tr
+                                    th tour
+                                    td=review.tour.name
+                                tr
+                                    th name
+                                    td=review.user.name
+                                tr
+                                    th review
+                                    td=`${review.guideReview} (${review.guideRating}/5)`
+                else    
+                    .empty empty 
 
         // TOUR I MAKE
         .myTours-container
@@ -52,7 +71,7 @@ block content
 
         // Tours i buy
         .myBookings-container
-            h3 My bookings
+            h3 bookings
             if myBookings.length>0
                 each booking in myBookings
                     .myBooking
@@ -78,21 +97,4 @@ block content
             else 
                 .empty empty
 
-        // Reviews i get
-        .myReviews-container
-            h3 my reviews
-            if reviewsIget.length>0
-                each review in reviewsIget
-                    .myReview
-                        table.myReview-table
-                            tr
-                                th tour
-                                td=review.tour.name
-                            tr
-                                th name
-                                td=review.user.name
-                            tr
-                                th review
-                                td=`${review.guideReview} (${review.guideRating}/5)`
-            else    
-                .empty empty 
+        

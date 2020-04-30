@@ -1,5 +1,7 @@
+/* eslint-disable prefer-destructuring */
 const Tour = require("../models/tourModel");
 const Booking = require("../models/bookingModel");
+const AppError = require("../utils/appError");
 
 exports.getOverview = async (req, res, next) => {
   res.status(200).render("overview");
@@ -14,6 +16,7 @@ exports.getLoginForm = (req, res, next) => {
 };
 
 exports.getAccount = async (req, res, next) => {
+  if (req.paramsUser) req.user = req.paramsUser;
   const myTours = await Tour.find({ guides: req.user.id })
     .populate({
       path: "bookings",
@@ -29,7 +32,12 @@ exports.getAccount = async (req, res, next) => {
     populate: { path: "reviews" },
   });
 
-  const { reviewsIget } = req.user;
+  let reviewsIget;
+  if (req.paramsUser) {
+    reviewsIget = req.paramsUser.reviewsIget;
+  } else {
+    reviewsIget = req.user.reviewsIget;
+  }
   res.status(200).render("account", { myTours, myBookings, reviewsIget });
 };
 
@@ -42,10 +50,14 @@ exports.getresetPasswordForm = (req, res, next) => {
 };
 
 exports.getCreateTourForm = (req, res, next) => {
+  if (!req.user)
+    return next(new AppError("Please login to access this route.", 401));
   res.status(200).render("createTourForm");
 };
 
 exports.getUpdateUserForm = (req, res, next) => {
+  if (!req.user)
+    return next(new AppError("Please login to access this route.", 401));
   res.status(200).render("updateUserForm");
 };
 
@@ -62,12 +74,16 @@ exports.getTour = async (req, res, next) => {
 };
 
 exports.getReviewForm = async (req, res, next) => {
+  if (!req.user)
+    return next(new AppError("Please login to access this route.", 401));
   const tour = await Tour.findOne({ slug: req.params.tour });
   const guide = tour.guides[0];
   res.status(200).render("createReviewForm", { tour, guide });
 };
 
 exports.getUpdateTourForm = async (req, res, next) => {
+  if (!req.user)
+    return next(new AppError("Please login to access this route.", 401));
   req.app.locals.tour = await Tour.findOne({ slug: req.params.tour });
   res.status(200).render("updateTourForm");
 };
