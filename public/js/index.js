@@ -6,7 +6,13 @@ import "core-js/stable";
 import "regenerator-runtime/runtime.js";
 
 import { login, logout, signup, forgot, reset, updateUser } from "./user.js";
-import { createTour, updateTour, deleteTour } from "./tour.js";
+import {
+  createTour,
+  updateTour,
+  deleteTour,
+  displayMap,
+  createMap,
+} from "./tour.js";
 import { createBooking, deleteBooking } from "./booking.js";
 import { createReview } from "./review.js";
 
@@ -22,7 +28,8 @@ const resetPassword = document.querySelector(".form--resetPassword");
 const tourForm = document.querySelector(".form--createTour");
 const updateTourForm = document.querySelector(".form--updateTour");
 const deleteTourBtn = document.querySelectorAll(".deleteTour");
-const lastTourPage = document.querySelectorAll(".page");
+const mapBox = document.getElementById("map");
+const createMapBox = document.getElementById("createMap");
 //review
 const createReviewForm = document.querySelector(".form--createReview");
 //booking
@@ -106,6 +113,38 @@ if (tourForm) {
     for (let x = 0; x < ins; x++) {
       form.append("images", document.getElementById("images").files[x]);
     }
+
+    const nameArr = [];
+    const dayArr = [];
+    const coordinateArr = [];
+    const descriptionArr = [];
+
+    document
+      .querySelectorAll(".locationDay")
+      .forEach((el) => dayArr.push(el.value));
+    document
+      .querySelectorAll(".location")
+      .forEach((el) => nameArr.push(el.value));
+    document
+      .querySelectorAll(".locationInfo")
+      .forEach((el) => descriptionArr.push(el.value));
+    document
+      .querySelectorAll(".location")
+      .forEach((el) => coordinateArr.push(el.dataset.lngLat));
+
+    const locations = [];
+    for (let i = 0; i < dayArr.length; i++) {
+      const el = {};
+      const coor = [];
+      el.name = nameArr[i];
+      el.day = dayArr[i] * 1;
+      coor.push(coordinateArr[i].split(",")[0] * 1);
+      coor.push(coordinateArr[i].split(",")[1] * 1);
+      el.coordinates = coor;
+      el.description = descriptionArr[i];
+      locations.push(el);
+    }
+    form.append("locations", JSON.stringify(locations));
     createTour(form);
   });
 }
@@ -166,15 +205,12 @@ if (deleteTourBtn)
       deleteTour(tourId);
     })
   );
-/* 
-if (lastTourPage)
-  lastTourPage.addEventListener("click", (e) => {
-    e.preventDefault();
-    const currentPage = e.target.value;
-    console.log(currentPage);
-    if (currentPage % 3 === 0) {
-      res.locals.nextPage = currentPage;
-    }else{
-      res.locals
-    }
-  }); */
+
+if (mapBox) {
+  const locations = JSON.parse(mapBox.dataset.locations);
+  displayMap(locations);
+}
+
+if (createMapBox) {
+  createMap();
+}

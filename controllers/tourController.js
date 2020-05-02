@@ -83,6 +83,7 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 
 exports.createTour = catchAsync(async (req, res, next) => {
   req.body.guides = req.user.id;
+  console.log(req.body.locations);
   if (req.body.imageCover === "undefined") {
     req.body.imageCover = "default-imageCover.jpg";
   }
@@ -90,6 +91,7 @@ exports.createTour = catchAsync(async (req, res, next) => {
   if (!req.body.images) {
     req.body.images = ["default-image.jpg"];
   }
+  req.body.locations = JSON.parse(req.body.locations);
   const newTour = await Tour.create(req.body);
 
   req.user.role = "guide";

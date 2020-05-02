@@ -14,13 +14,11 @@ block content
                         input(type="submit" value="search")
                 .function-sort
                     a(href="/?sort=-ratingsAverage")
-                        .list-items 평점순
+                        .list-items rating
                     a(href="/?sort=price")
-                        .list-items 가격순
-                    a(href="#")
-                        .list-items 거리순
+                        .list-items price
                     a(href="/?sort=-createdAt")
-                        .list-items 최신순
+                        .list-items create
             .tours-content
                 if noTour
                     .noTour no tours exist..!

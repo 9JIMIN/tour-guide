@@ -325,6 +325,9 @@ td {
   width: 10rem;
   margin: 0 auto;
 }
+.user-container > a .user-update:hover {
+  background-color: bisque;
+}
 /* ############ my tours ############## */
 .myTours-container {
   text-align: center;
@@ -362,9 +365,30 @@ td {
   background-color: coral;
   padding: 1rem;
   width: 20rem;
-  margin: 0 auto;
+  margin: 1rem auto;
   text-align: center;
   font-size: 1.2rem;
+}
+.create-tour:hover {
+  background-color: lightpink;
+}
+.form-map {
+  width: 100%;
+  margin: 0 auto;
+}
+#createMap.createMap {
+  width: 60vw;
+  height: 60vh;
+  margin: 2rem auto;
+}
+.tour-map {
+  width: 100%;
+  margin: 0 auto;
+}
+#map.showMap {
+  width: 80vw;
+  height: 70vh;
+  margin: 2rem auto;
 }
 /* ############ my bookings ############ */
 .myBookings-container {
@@ -428,7 +452,8 @@ input {
 
 .update-btn {
   margin: 0 auto;
-  padding: 10px;
+  padding: 1rem;
+  width: 6vw;
   background-color: yellowgreen;
   cursor: pointer;
 }
@@ -465,9 +490,45 @@ input {
   padding: 1rem;
   text-align: center;
 }
+/* creat TOur######################## */
+.form--createTour {
+  width: 70vw;
+}
+.form-text {
+  width: 40vw;
+  display: inline-block;
+}
+.form-place {
+  background-color: darkkhaki;
+  padding: 1rem;
+  width: 90%;
+  margin: 1rem auto;
+}
+.place-table {
+  width: 90%;
+  margin: 0 auto;
+}
 
+.place-table tr td {
+  padding: 0 0.1rem;
+}
+
+.locationDay {
+  width: 5vw;
+}
+.location {
+  width: 10vw;
+}
+.locationInfo {
+  width: 40vw;
+}
 .form-el .update-btn {
   margin: 1rem auto;
+}
+.delete-btn {
+  background-color: crimson;
+  padding: 1rem;
+  margin: 0 auto;
 }
 /* ################# tour #####################*/
 .tour-box {
@@ -491,6 +552,9 @@ input {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  background-color: aquamarine;
+  padding: 1rem;
+  margin-top: 2rem;
 }
 
 .tables .tour-table {
@@ -571,9 +635,7 @@ input {
   font-size: 1.8rem;
   font-weight: 400;
   text-align: center;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  padding: 1.6rem 15rem;
+  padding: 1rem 5rem;
   -webkit-box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
   box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
 }
@@ -582,4 +644,12 @@ input {
 }
 .alert--error {
   background-color: #eb4d4b;
+}
+
+.marker {
+  background-image: url("../img/pin.png");
+  background-size: cover;
+  width: 32px;
+  height: 40px;
+  cursor: pointer;
 }

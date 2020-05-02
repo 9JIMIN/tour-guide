@@ -1,31 +1,48 @@
 extends base
 
+block append head
+    script(src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js")
+    link(href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet")
+    script(src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js')
+    link(rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css' type='text/css')
 block content
     form.form-wide.form--createTour
         h3 create Tour
-        .form-el
-            label(for='name') Name
-            input#name(type='text' placeholder='Tour Name')
-        .form-el
-            label(for='description') About Tour
-            input#description(type='text' placeholder='About Tour')
-        .form-el
-            label(for='price') price
-            input#price(type='text' placeholder='price')
-        .form-el
-            label(for='group') group
-            input#group(type='text' placeholder='group')
-        .form-el
-            label(for='date') start date
-            input#startDate(type='date' value=`${new Date(Date.now()).toISOString().slice(0,10)}`)
-        .form-el
-            label(for='date') end date
-            input#endDate(type='date' value=`${new Date(Date.now()).toISOString().slice(0,10)}`)
-        .form-el
-            label(for='imageCover') Cover image
-            input#imageCover(type="file" accept="image/*")
-        .form-el
-            label(for='images') images
-            input#images(type='file' accept="image/*" multiple name="images")
-        .form-el
-            button.update-btn(type="submit") create!
+        .form-text
+            .form-el
+                label(for='name') Name
+                input#name(type='text' placeholder='Tour Name')
+            .form-el
+                label(for='description') About Tour
+                input#description(type='text' placeholder='About Tour')
+            .form-el
+                label(for='price') price
+                input#price(type='text' placeholder='price')
+            .form-el
+                label(for='group') group
+                input#group(type='text' placeholder='group')
+            .form-el
+                label(for='date') start date
+                input#startDate(type='date' value=`${new Date(Date.now()).toISOString().slice(0,10)}`)
+            .form-el
+                label(for='date') end date
+                input#endDate(type='date' value=`${new Date(Date.now()).toISOString().slice(0,10)}`)
+            .form-el
+                label(for='imageCover') Cover image( max 1 )
+                input#imageCover(type="file" accept="image/*")
+            .form-el
+                label(for='images') images( max 3 )
+                input#images(type='file' accept="image/*" multiple name="images")
+        .form-map
+            #createMap.createMap
+            .form-place
+                table.place-table
+                    tr
+                        th day
+                        th name
+                        th description
+                    
+                span#placeOne select place from map
+            
+            .form-el
+                button.update-btn(type="submit") create!

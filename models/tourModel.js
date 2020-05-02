@@ -9,7 +9,7 @@ const tourSchema = new mongoose.Schema(
       unique: true,
     },
     slug: String,
-    description: String,
+    description: { type: String, required: [true, "description is missging!"] },
     imageCover: { type: String },
     images: [{ type: String }],
     price: { type: Number, required: [true, "price is missing!"] },
@@ -31,6 +31,15 @@ const tourSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.ObjectId,
         ref: "User",
+      },
+    ],
+    locations: [
+      {
+        type: { type: String, default: "Point", enum: ["Point"] },
+        name: String,
+        day: Number,
+        coordinates: [Number],
+        description: String,
       },
     ],
     createdAt: {

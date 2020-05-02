@@ -19,7 +19,6 @@ export const login = async (email, password) => {
     }
   } catch (err) {
     showAlert("error", err.response.data.message);
-    console.log(err.response.data.message);
   }
 };
 
@@ -47,14 +46,14 @@ export const signup = async (name, email, password, passwordConfirm) => {
       data: { name, email, password, passwordConfirm },
     });
     if (res.data.status === "success") {
-      showAlert("success", "sign up success! please check your email");
+      showAlert("success", "sign up success!");
       window.setTimeout(() => {
         location.assign("/");
       }, 1500);
     }
   } catch (err) {
     showAlert("error", err.response.data.message);
-    console.log(err.response.data.message);
+    console.log(err.response.data);
   }
 };
 

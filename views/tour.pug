@@ -1,4 +1,9 @@
 extends base
+block append head
+    script(src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js")
+    link(href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet")
+    script(src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js')
+    link(rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css' type='text/css')
 
 block content
     .tour-box
@@ -6,6 +11,10 @@ block content
         .tour-images
             each image, i in tour.images
                 img(src=`/img/tours/${image}` alt=`image of ${tour.name}-${i+1}`)
+
+        .tour-map
+            #map.showMap(data-locations=`${JSON.stringify(tour.locations)}`)
+            
         .tables
             table.tour-table
                 tr
@@ -50,6 +59,8 @@ block content
                     th=tour.guides[0].name
                 tr
                     th=`${tour.guides[0].ratingsQuantity} reviews ${tour.guides[0].ratingsAverage}/5 rating`
+
+       
 
         .tour-booking
             if !user
