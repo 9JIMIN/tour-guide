@@ -2,7 +2,7 @@
 
 This is my first full stack website project. about tour product selling website. after [Natours of udemy lecture](https://www.udemy.com/course/nodejs-express-mongodb-bootcamp/), I want to make my own version of node based website. so this is what i make.
 
-## development process
+## Development process
 
 It took about 3 weeks. (04/14~05/02)
 
@@ -39,7 +39,7 @@ It took about 3 weeks. (04/14~05/02)
     after all implement, deploy it to naver cloud platform. using cloud server is quiet hard to understand. so i just follow the tutorial of some others work.
     but a anyway I did all the things. from a to z. so proud of myself.
 
-## website introduction
+## Website introduction
 
 <img src="./readme-image/관계도.JPG" width="900">
 1. overview ( / )
@@ -65,7 +65,7 @@ search user with that email and send the reset link.
 7. tour ( /:user/:tour )
 <img src="./readme-image/투어1.JPG" width="700">
 <img src="./readme-image/투어2.JPG" width="700">
-tour images and information. reviews and guide. most important, map that can show days plan and locations.
+tour images and information. reviews and guide. most important, map that can show days plan and locations. you can see popup when click the markers.
 8. user update ( /settings)
 <img src="./readme-image/계정수정.JPG" width="700">
 user data and password update.
@@ -79,7 +79,7 @@ when you click the map new input field is create so guide can type the each loca
 <img src="./readme-image/리뷰.JPG" width="700">
 after tour user can leave review to tour and guide. that rating and review goes to tour and guide rating and recalculate the average.
 
-## what i learn
+## What I learned
 
 I started coding October last year, at first it's so fun to make web page with html, css and little javascript. but what i learned so far is all design. Not the actual working web service. so i decide to make real web site so that i can share all over the world. after searching good lecture to take. I choose Jonas's node.js course and learned how to make full stack application. at first it was difficult to accept the content about database, api routing.. with my short english skills. but i heard it over and over again. so it toke almost 2 months to finish to course and i have learned a lot.
 after finished the course I decide to make this natours app again. but my style. At first it is fun to make my app not copying other ones code. but when app getting bigger there's ton's of errors occur. so past 3 weeks I spent most of my time fixing the error, crushed my head on to the keyboard, "why error!?!" that's 90% of last three weeks. I wanted to give up several times a day. i didn't give up. if i quit this time again, i really felt like i couldn't do anything. although it took a lot longer than I thought, I did it to the end. Of course it's not perfect, and there's a lot of errors, but I implement every functionality I dreamed of.
