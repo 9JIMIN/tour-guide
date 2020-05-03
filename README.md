@@ -76,16 +76,13 @@ search user with that email and send the reset link.
 ### 7. tour ( /:user/:tour )
 <img src="./readme-image/투어1.JPG" width="700">
 <img src="./readme-image/투어2.JPG" width="700">
-<<<<<<< HEAD
-tour images and information. reviews and guide. most important, map that can show days plan and locations. you can see popup when click the markers.
-8. user update ( /settings)
+
+### 8. user update ( /settings)
 <img src="./readme-image/계정수정.JPG" width="700">
-=======
 tour images and information. reviews and guide. most important, map that can show days plan and locations.
 
 ### 8. user update ( /settings)
 <img src="./readme-image/계정수정.JPG" width="500">
->>>>>>> b7c923469e2c376db92703f05f81d80a7b16e289
 user data and password update.
 
 ### 9. tour update ( /:user/:tour/edit)
