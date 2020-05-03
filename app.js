@@ -5,6 +5,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
+const mongoSanitize = require("express-mongo-sanitize");
+const xss = require("xss-clean");
 
 const errorController = require("./controllers/errorController");
 const bookingController = require("./controllers/bookingController");
@@ -33,6 +35,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(helmet());
 app.use(cookieParser());
 app.use(morgan("dev"));
+app.use(mongoSanitize());
+app.use(xss());
 
 app.use("/users", userRouter);
 app.use("/tours", tourRouter);
