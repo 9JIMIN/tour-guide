@@ -26,7 +26,7 @@ learn how to reference other collection of DB, and populate. and in this period 
 uploading photo of user profile and tour images. uploading to local computer.(after this would be cloud server) when getting images, resize it to save storage. and delete old one when user update new photo.
 
 and i use stripe api to buy or selling tour product. for https testing i use ngrok package and after getting webhook of success, create booking document. like review model this also have user and tour id. in this period i have to think again about each DB collections relationship. they are all connected so how to populate and referencing is really important.
-- 04/26~04/29
+> 04/26~04/29
 - add CSS
 - review remake
 
